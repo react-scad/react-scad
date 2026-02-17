@@ -1,104 +1,55 @@
 # react-scad
 
-Render JSX to **OpenSCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
+Monorepo for **React-SCAD**: render JSX to OpenSCAD models using the React reconciler.
 
-- Write declarative 3D with React components; no imperative OpenSCAD scripting
-- Compose shapes with familiar JSX; get `.scad` source for OpenSCAD or 3D printing
-- Use the CLI to bundle and export in one go, with optional watch mode
+| Package | Description |
+| -------- | ------------ |
+| [**@react-scad/react-scad**](./packages/react-scad) | Core library: React reconciler → SCAD tree → OpenSCAD source |
+| [**@react-scad/cli**](./packages/cli) | CLI: build and run `.jsx`/`.tsx` entry files (esbuild + watch) |
+| [**example-rocket**](./examples/rocket) | Example: rocket with animated rotation |
 
-## Preview
-
-![Example](./assets/example.png)
-
-### Quick Start
+## Development
 
 ```bash
-npx @react-scad/react-scad@latest run ./examples/rocket/main.tsx
+pnpm install
+pnpm run build          # build library + CLI
+pnpm run dev            # run rocket example in watch mode
+pnpm run format         # format all packages and examples
+pnpm run lint           # lint all packages and examples
 ```
 
-With **watch** (rebuild on save):
+See [packages/react-scad/README.md](./packages/react-scad/README.md) for usage, API, and install instructions.
 
-```bash
-npx @react-scad/react-scad@latest run ./examples/rocket/main.tsx --watch
-```
+## Contributing
 
-Use the `run` command (alias `r`) with your entry file; add `-w` or `--watch` for watch mode.
+1. **Fork and clone** the repo, then install dependencies:
+   ```bash
+   git clone https://github.com/YOUR_USER/react-scad.git
+   cd react-scad
+   pnpm install
+   ```
 
-Entry can be a `.jsx` or `.tsx` file. The CLI writes the `.scad` file to your current working directory.
+2. **Create a branch** for your change:
+   ```bash
+   git checkout -b fix/your-change
+   ```
 
-## Install
+3. **Build and test** before committing:
+   ```bash
+   pnpm run build
+   pnpm run dev          # optional: smoke-test the example
+   ```
 
-Install the package and React:
+4. **Format and lint** (all code in the repo):
+   ```bash
+   pnpm run format
+   pnpm run lint
+   ```
 
-```bash
-npm install react react-scad@latest
-```
+5. **Open a PR** against `main` with a short description of the change. For bugs, reference the issue if one exists.
 
-### Minimal example
-
-```jsx
-import { createRoot, Cube, Sphere, Union } from "react-scad";
-
-const root = createRoot("model.scad");
-
-root.render(
-  <Union>
-    <Cube size={[10, 10, 10]} center />
-    <Sphere r={6} />
-  </Union>
-);
-```
-
-## Primitives (OpenSCAD coverage)
-
-All listed OpenSCAD primitives and operations are implemented. Prop names follow OpenSCAD where it makes sense (`r`, `h`, `size`, `center`, `$fn`, etc.).
-
-| OpenSCAD | react-scad | Implemented |
-| -------- | ---------- | :---------: |
-| **3D primitives** | | |
-| `cube()` | `Cube` | ✓ |
-| `sphere()` | `Sphere` | ✓ |
-| `cylinder()` | `Cylinder` | ✓ |
-| `polyhedron()` | `Polyhedron` | ✓ |
-| **2D primitives** | | |
-| `square()` | `Square` | ✓ |
-| `circle()` | `Circle` | ✓ |
-| `polygon()` | `Polygon` | ✓ |
-| **CSG** | | |
-| `union()` | `Union` | ✓ |
-| `difference()` | `Difference` | ✓ |
-| `intersection()` | `Intersection` | ✓ |
-| **Transforms** | | |
-| `translate()` | `Translate` | ✓ |
-| `rotate()` | `Rotate` | ✓ |
-| `scale()` | `Scale` | ✓ |
-| **2D → 3D** | | |
-| `linear_extrude()` | `LinearExtrude` | ✓ |
-| `rotate_extrude()` | `RotateExtrude` | ✓ |
-| **Text** | | |
-| `text()` | `Text` | ✓ |
-| **Other** | | |
-| `{ }` (group) | `Group` | ✓ |
-| inline code | `Raw` | ✓ |
-| `surface()` | `Surface` | ✓ |
-| `import()` | `Import` | ✓ |
-
-## Why react-scad?
-
-OpenSCAD is great for parametric 3D, but code is imperative and nesting gets messy. Composing modules and passing parameters can be tedious.
-
-With react-scad you build a tree of SCAD primitives using React components. The reconciler runs with a custom host config that builds an internal SCAD tree (no DOM). Serialization turns that tree into OpenSCAD source.
-
-**JSX → React tree → host config → SCAD tree → OpenSCAD source.**
-
-You get declarative composition, reuse via components, and the same `.scad` output you’d use in OpenSCAD or slicers.
-
-## Acknowledgements
-
-- [React](https://react.dev/) and the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler) for the rendering model that makes this approach possible.
-- [OpenSCAD](https://openscad.org/) for the script-based CAD language and documentation.
+6. **Publishing** is done via GitHub Actions on push to `main`; no need to publish from a PR.
 
 ## License
 
-React SCAD is MIT-licensed open-source software by Leon Meka and 
-contributors.
+MIT

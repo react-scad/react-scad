@@ -1,0 +1,19 @@
+{
+	"name": "@react-scad/example-rocket",
+	"private": true,
+	"description": "Rocket example for react-scad",
+	"type": "module",
+	"scripts": {
+		"dev": "react-scad run main.tsx --watch",
+		"start": "react-scad run main.tsx"
+	},
+	"dependencies": {
+		"@react-scad/react-scad": "workspace:*",
+		"react": "^18.3.1"
+	},
+	"devDependencies": {
+		"@react-scad/cli": "workspace:*",
+		"@types/react": "^18.3.12",
+		"typescript": "^5.6.3"
+	}
+}

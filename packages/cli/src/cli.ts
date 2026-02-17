@@ -2,40 +2,42 @@
 
 import { command, run, positional, boolean } from "@drizzle-team/brocli";
 import { spawn } from "node:child_process";
-import { unlinkSync } from "node:fs";
+import { unlinkSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { readFileSync } from "node:fs";
 import * as esbuild from "esbuild";
 
-const pkgRoot = path.dirname(fileURLToPath(import.meta.url));
-const pkg = JSON.parse(readFileSync(path.join(pkgRoot, "package.json"), "utf8"));
-const reactScadMain = path.join(pkgRoot, "dist/index.js");
+const cliRoot = path.dirname(fileURLToPath(import.meta.url));
+const pkgPath = path.join(cliRoot, "..", "package.json");
+const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { version: string };
+const require = createRequire(import.meta.url);
+const reactScadMain = require.resolve("@react-scad/react-scad");
 
 const noColor = process.env.NO_COLOR != null || !process.stdout.isTTY;
 const c = {
-	dim: (s) => (noColor ? s : `\x1b[2m${s}\x1b[0m`),
-	cyan: (s) => (noColor ? s : `\x1b[36m${s}\x1b[0m`),
-	green: (s) => (noColor ? s : `\x1b[32m${s}\x1b[0m`),
-	red: (s) => (noColor ? s : `\x1b[31m${s}\x1b[0m`),
-	yellow: (s) => (noColor ? s : `\x1b[33m${s}\x1b[0m`),
-	bold: (s) => (noColor ? s : `\x1b[1m${s}\x1b[0m`),
+	dim: (s: string) => (noColor ? s : `\x1b[2m${s}\x1b[0m`),
+	cyan: (s: string) => (noColor ? s : `\x1b[36m${s}\x1b[0m`),
+	green: (s: string) => (noColor ? s : `\x1b[32m${s}\x1b[0m`),
+	red: (s: string) => (noColor ? s : `\x1b[31m${s}\x1b[0m`),
+	yellow: (s: string) => (noColor ? s : `\x1b[33m${s}\x1b[0m`),
+	bold: (s: string) => (noColor ? s : `\x1b[1m${s}\x1b[0m`),
 };
 
-function time() {
+function time(): string {
 	return new Date().toLocaleTimeString("en-US", { hour12: false });
 }
 
 const log = {
-	header() {
+	header(): void {
 		console.log();
 		console.log(c.cyan("  ╭─────────────────────────────╮"));
 		console.log(c.cyan("  │  ") + c.bold("react-scad") + c.cyan("                    │"));
 		console.log(c.cyan("  ╰─────────────────────────────╯"));
 		console.log();
 	},
-	buildStart(entryPath, watch = false) {
+	buildStart(entryPath: string, watch = false): void {
 		const rel = path.relative(process.cwd(), entryPath) || entryPath;
 		console.log(
 			c.dim(`[${time()}] `) +
@@ -44,18 +46,18 @@ const log = {
 				(watch ? c.yellow("  (watch)") : ""),
 		);
 	},
-	buildOk(ms) {
+	buildOk(ms: number): void {
 		console.log(c.dim(`[${time()}] `) + c.green("✓ Built") + c.dim(` in ${ms}ms`));
 	},
-	buildFail(err) {
+	buildFail(err: unknown): void {
 		console.log(c.dim(`[${time()}] `) + c.red("✗ Build failed"));
 		console.error(err);
 	},
-	runStart() {
+	runStart(): void {
 		console.log(c.dim(`[${time()}] `) + c.cyan("▶ Running") + c.dim(" …"));
 		console.log(c.dim("  ─────────────────────────────"));
 	},
-	runEnd(code) {
+	runEnd(code: number | null): void {
 		console.log(c.dim("  ─────────────────────────────"));
 		if (code === 0) {
 			console.log(c.dim(`[${time()}] `) + c.green("✓ Done") + c.dim(` (exit ${code})`));
@@ -64,18 +66,18 @@ const log = {
 		}
 		console.log();
 	},
-	watchIntro(entryPath) {
+	watchIntro(entryPath: string): void {
 		const rel = path.relative(process.cwd(), entryPath) || entryPath;
 		console.log(c.bold("react-scad") + c.dim("  watching  ") + rel + c.dim("  ·  Ctrl+C to stop"));
 	},
-	watchCycle(ms, code) {
+	watchCycle(ms: number, code: number | null): void {
 		const ok = code === 0;
 		const status = ok ? c.green("done") : c.red(`exit ${code}`);
 		console.log(`  ${ok ? c.green("✓") : c.red("✗")}${c.dim(` ${ms}ms  `)}${status}`);
 	},
 };
 
-const reactScadResolver = {
+const reactScadResolver: esbuild.Plugin = {
 	name: "react-scad-resolver",
 	setup(build) {
 		build.onResolve({ filter: /^(react-scad|@react-scad\/react-scad)(\/.*)?$/ }, () => ({
@@ -84,7 +86,7 @@ const reactScadResolver = {
 	},
 };
 
-function runScript(outFile, quiet = false) {
+function runScript(outFile: string, quiet = false): Promise<number | null> {
 	return new Promise((resolve) => {
 		if (!quiet) {
 			log.runStart();
@@ -102,10 +104,12 @@ function runScript(outFile, quiet = false) {
 	});
 }
 
-function cleanup(outFile) {
+function cleanup(outFile: string): void {
 	try {
 		unlinkSync(outFile);
-	} catch (_) {}
+	} catch {
+		// ignore
+	}
 }
 
 const runCommand = command({
@@ -123,10 +127,10 @@ const runCommand = command({
 		const watchMode = opts.watch;
 		const outFile = path.join(
 			tmpdir(),
-			watchMode ? "react-scad-watch.js" : `react-scad-${Date.now()}.js`,
+			watchMode ? "react-scad-watch.mjs" : `react-scad-${Date.now()}.mjs`,
 		);
 
-		const buildOpts = {
+		const buildOpts: esbuild.BuildOptions = {
 			entryPoints: [entry],
 			bundle: true,
 			format: "esm",
@@ -136,7 +140,7 @@ const runCommand = command({
 			plugins: [reactScadResolver],
 		};
 
-		async function buildAndRun() {
+		async function buildAndRun(): Promise<number | null | false> {
 			log.header();
 			log.buildStart(entry, false);
 			const t0 = Date.now();
@@ -154,7 +158,7 @@ const runCommand = command({
 			log.watchIntro(entry);
 
 			let buildStartTime = 0;
-			const runPlugin = {
+			const runPlugin: esbuild.Plugin = {
 				name: "run-after-build",
 				setup(build) {
 					build.onStart(() => {
@@ -175,7 +179,7 @@ const runCommand = command({
 
 			const ctx = await esbuild.context({
 				...buildOpts,
-				plugins: [...buildOpts.plugins, runPlugin],
+				plugins: [...(buildOpts.plugins ?? []), runPlugin],
 			});
 
 			const t0 = Date.now();
@@ -199,6 +203,6 @@ const runCommand = command({
 
 run([runCommand], {
 	name: "react-scad",
-	description: pkg.description,
+	description: "Build and run React-SCAD entry files",
 	version: pkg.version,
 });
