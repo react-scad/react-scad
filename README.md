@@ -1,10 +1,12 @@
 # react-scad
 
-Render JSX to **OpenSCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
+Render JSX to **SCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
 
 - Describe models as a tree of components instead of imperative SCAD; avoids nested modules and parameter threading.
 - Same React/JSX mental model (components, props, composition), output is 3D.
 - Writes plain `.scad` files for [OpenSCAD](https://openscad.org/) or any slicer.
+
+---
 
 ## Preview
 
@@ -12,11 +14,15 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 
 *Rocket example with animated rotation.*
 
+---
+
 ## Why react-scad?
 
 SCAD is good for parametric 3D but scripts are imperative and nesting gets heavy; composing modules and passing parameters is tedious.
 
 A lot of people already think in components and JSX from building UIs. **react-scad** aims to facilitate that same way of thinking for parametric 3D.
+
+---
 
 ## Getting Started
 
@@ -31,13 +37,16 @@ A lot of people already think in components and JSX from building UIs. **react-s
 npm install react @react-scad/core
 ```
 
-With pnpm or yarn:
+<details>
+<summary>pnpm or yarn</summary>
 
 ```bash
 pnpm add react @react-scad/core
 # or
 yarn add react @react-scad/core
 ```
+
+</details>
 
 ### Minimal example
 
@@ -57,13 +66,17 @@ root.render(
 );
 ```
 
-- `createRoot("model.scad")`: creates a root that writes to `model.scad`.
-- `Union`: CSG union of all children (like `union()` in SCAD).
-- `Cube` / `Sphere`: props match SCAD: `size`, `center`, `r`, `$fn`, etc.
+| Piece | Meaning |
+| ----- | ------- |
+| `createRoot("model.scad")` | Root that writes to `model.scad` |
+| `Union` | CSG union of all children (like `union()` in SCAD) |
+| `Cube` / `Sphere` | Props match SCAD: `size`, `center`, `r`, `$fn`, etc. |
 
 ### Run and write the `.scad` file
 
 Run your entry file with [tsx](https://github.com/privatenumber/tsx) so Node can execute the `.tsx`. The `.scad` file is written to the **current working directory** when you call `root.render()`.
+
+> **Note:** Node doesn’t run `.tsx` by itself. Use **tsx** or bundle with esbuild (see [Advanced](#advanced) for alternatives).
 
 ```bash
 npx tsx main.tsx
@@ -75,16 +88,18 @@ Watch mode (re-run on save):
 npx tsx watch main.tsx
 ```
 
-Run from the directory that contains `main.tsx` (or use the path to it).
+The path you pass to `createRoot()` is relative to the current working directory.
 
 ### View the result
 
 - Open the generated `.scad` file in [OpenSCAD](https://openscad.org/) to preview, export STL, or tweak.
 - Or import the `.scad` (or an exported STL) into your slicer for 3D printing.
 
+---
+
 ## Advanced
 
-To write to a custom path or get the SCAD string in memory instead of using `createRoot(path)`, use a container and `toScad`:
+To write to a custom path or get the SCAD string in memory instead of using `createRoot(path)`, use `createContainer()`, `render()`, and `toScad()`:
 
 ```jsx
 import { createContainer, render, toScad, Cube, Sphere, Union } from "@react-scad/core";
@@ -103,6 +118,10 @@ const scadCode = toScad(container);
 writeFileSync("out/model.scad", scadCode);
 // or use scadCode however you like
 ```
+
+Then run with `npx tsx main.tsx` or bundle with esbuild and run with Node.
+
+---
 
 ## Primitives (SCAD coverage)
 
@@ -138,7 +157,11 @@ All listed SCAD primitives and operations are implemented. Prop names follow SCA
 | `surface()` | `Surface` | ✓ |
 | `import()` | `Import` | ✓ |
 
-If you need a SCAD primitive or feature that isn’t listed here, open an [issue](https://github.com/react-scad/react-scad/issues) or a PR.
+### Missing anything?
+
+> If you need a SCAD primitive or feature that isn’t listed here, open an [issue](https://github.com/react-scad/react-scad/issues) or a PR.
+
+---
 
 ## Contributing
 
@@ -170,10 +193,14 @@ If you need a SCAD primitive or feature that isn’t listed here, open an [issue
 
 6. **Publishing** is done via GitHub Actions on push to `main`; no need to publish from a PR.
 
+---
+
 ## Acknowledgements
 
 - [React](https://react.dev/) and the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler) for the rendering model that makes this approach possible.
 - [OpenSCAD](https://openscad.org/) for the SCAD language and documentation.
+
+---
 
 ## License
 
