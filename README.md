@@ -1,4 +1,4 @@
-# react-scad
+# [react-scad](https://github.com/react-scad/react-scad) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/react-scad/react-scad/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@react-scad/core.svg?style=flat)](https://www.npmjs.com/package/@react-scad/core) [![Publish](https://github.com/react-scad/react-scad/actions/workflows/publish-npm.yml/badge.svg)](https://github.com/react-scad/react-scad/actions/workflows/publish-npm.yml) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/react-scad/react-scad#contributing)
 
 Render JSX to **SCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
 
