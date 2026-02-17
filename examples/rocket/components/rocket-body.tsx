@@ -1,5 +1,3 @@
-import React from "react";
-import { Cylinder } from "react-scad";
-import { FN, ROCKET_H, ROCKET_R } from "../constants";
+import { Cylinder } from "@react-scad/core";
 
-export const RocketBody = () => <Cylinder r={ROCKET_R} h={ROCKET_H} $fn={FN} />;
+export const RocketBody = () => <Cylinder r={15} h={100} $fn={100} />;

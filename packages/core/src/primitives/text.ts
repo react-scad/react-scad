@@ -20,7 +20,7 @@ export const Text = (props: TextProps) =>
 Text.displayName = "Text";
 
 function escapeString(s: string): string {
-	return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+	return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\r/g, "\\r").replace(/\n/g, "\\n");
 }
 
 export function serialize(node: TextNode, _indent: string, _ctx: SerializeContext): string {

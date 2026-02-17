@@ -1,22 +1,27 @@
-import React from "react";
-import { Raw } from "react-scad";
-import { ROCKET_R, WING_H, WING_L, WING_MANY, WING_W } from "../constants";
+import { LinearExtrude, Polygon, Rotate, Translate } from "@react-scad/core";
 
-const WINGS_RAW = `
-rocket_r = ${ROCKET_R};
-wing_w = ${WING_W};
-many = ${WING_MANY};
-wing_l = ${WING_L};
-wing_h = ${WING_H};
-wing_points = [[0,0],[wing_l,0],[0,wing_h]];
-in_by = 1;
+const WING_POINTS: [number, number][] = [
+	[0, 0],
+	[40, 0],
+	[0, 40],
+];
 
-for (i = [0: many - 1])
-  rotate([0, 0, 370 / many * i])
-  translate([rocket_r - in_by, 0, 0])
-  rotate([90, 0, 0])
-  linear_extrude(height = wing_w, center = true)
-    polygon(wing_points);
-`;
+export const RocketWings = () => (
+	<>
+		{Array.from({ length: 3 }, (_, i) => {
+			const angle = (370 / 3) * i;
 
-export const RocketWings = () => <Raw code={WINGS_RAW} />;
+			return (
+				<Rotate key={`wing-${angle}`} a={[0, 0, angle]}>
+					<Translate v={[14, 0, 0]}>
+						<Rotate a={[90, 0, 0]}>
+							<LinearExtrude height={2} center>
+								<Polygon points={WING_POINTS} />
+							</LinearExtrude>
+						</Rotate>
+					</Translate>
+				</Rotate>
+			);
+		})}
+	</>
+);

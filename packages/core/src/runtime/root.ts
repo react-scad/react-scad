@@ -1,9 +1,9 @@
-import { writeFileSync } from "node:fs";
 import type React from "react";
 import { toScad } from "../serialize/index.js";
 import type { ScadContainer } from "../types.js";
 import { createScadContainer } from "./node-ops.js";
 import { createFiberRoot, updateContainer } from "./reconciler.js";
+import { registerWriteOnCommit, writeAfterCommit } from "./write-on-commit.js";
 
 export type { ScadContainer };
 
@@ -17,11 +17,12 @@ export type Path = string;
 export function createRoot(path?: Path): ScadRoot {
 	const container = createScadContainer();
 	const fiberRoot = createFiberRoot(container);
+	if (path) registerWriteOnCommit(container, path);
 
 	return {
 		render(element: React.ReactElement) {
 			updateContainer(element, fiberRoot, null, null);
-			if (path) writeFileSync(path, toScad(container), "utf8");
+			if (path) writeAfterCommit(container);
 		},
 		toScad() {
 			return toScad(container);

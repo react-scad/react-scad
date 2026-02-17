@@ -1,5 +1,6 @@
 import type { ScadContainer, ScadNode } from "../types.js";
 import { cloneScadNode, createScadNode, updateScadNode } from "./node-ops.js";
+import { writeAfterCommit } from "./write-on-commit.js";
 
 export type { ScadContainer, ScadNode };
 
@@ -25,7 +26,9 @@ export function prepareForCommit(_containerInfo: ScadContainer): null {
 	return null;
 }
 
-export function resetAfterCommit(_containerInfo: ScadContainer): void {}
+export function resetAfterCommit(containerInfo: ScadContainer): void {
+	writeAfterCommit(containerInfo);
+}
 
 export function createInstance(
 	type: string,

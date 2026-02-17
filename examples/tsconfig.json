@@ -8,10 +8,7 @@
 		"skipLibCheck": true,
 		"jsx": "react-jsx",
 		"noEmit": true,
-		"baseUrl": ".",
-		"paths": {
-			"react-scad": ["../../packages/core/dist/index.d.ts"]
-		}
+		"baseUrl": "."
 	},
 	"include": ["**/*.ts", "**/*.tsx"]
 }

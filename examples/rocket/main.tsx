@@ -1,9 +1,9 @@
-import { Translate, createRoot } from "react-scad";
+import { Translate, createRoot } from "@react-scad/core";
 import { RocketBody } from "./components/rocket-body";
 import { RocketHead } from "./components/rocket-head";
 import { RocketWings } from "./components/rocket-wings";
 
-const root = createRoot("model.scad");
+const root = createRoot("rocket/model.scad");
 
 const App = () => (
 	<>

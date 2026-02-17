@@ -1,0 +1,23 @@
+{
+	"name": "@react-scad/examples",
+	"private": true,
+	"description": "React-SCAD examples (run different .tsx entry files)",
+	"type": "module",
+	"scripts": {
+		"dev": "react-scad run rocket/main.tsx --watch",
+		"dev:rocket": "react-scad run rocket/main.tsx --watch",
+		"dev:async": "react-scad run async/async-data.tsx --watch",
+		"start": "react-scad run rocket/main.tsx",
+		"start:rocket": "react-scad run rocket/main.tsx",
+		"start:async": "react-scad run async/async-data.tsx"
+	},
+	"dependencies": {
+		"@react-scad/core": "workspace:*",
+		"react": "^18.3.1"
+	},
+	"devDependencies": {
+		"@react-scad/cli": "workspace:*",
+		"@types/react": "^18.3.12",
+		"typescript": "^5.6.3"
+	}
+}

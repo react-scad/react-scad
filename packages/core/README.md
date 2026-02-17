@@ -17,7 +17,7 @@ npm install react @react-scad/core
 ### Minimal example
 
 ```jsx
-import { createRoot, Cube, Sphere, Union } from "react-scad";
+import { createRoot, Cube, Sphere, Union } from "@react-scad/core";
 
 const root = createRoot("model.scad");
 
