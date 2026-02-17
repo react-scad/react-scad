@@ -78,7 +78,8 @@ jobs:
       - name: Restore packages
         run: |
           rm -rf packages
-          mv built-packages packages
+          mkdir -p packages
+          mv react-scad cli packages/
           ls -la packages/react-scad packages/cli
 
       - name: Publish @react-scad/core
@@ -110,7 +111,8 @@ jobs:
       - name: Restore packages
         run: |
           rm -rf packages
-          mv built-packages packages
+          mkdir -p packages
+          mv react-scad cli packages/
 
       - name: Publish @react-scad/cli
         run: npm publish --provenance --access public
@@ -133,8 +135,9 @@ jobs:
 
       - name: Apply version bump and commit
         run: |
-          cp built-packages/react-scad/package.json packages/react-scad/package.json
-          cp built-packages/cli/package.json packages/cli/package.json
+          rm -rf packages
+          mkdir -p packages
+          mv react-scad cli packages/
           VERSION=$(node -p "require('./packages/react-scad/package.json').version")
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
