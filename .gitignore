@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Generated OpenSCAD (CLI output)
+*.scad
+
+# Lockfiles
+pnpm-lock.yaml
+.pnpm-store/
+
+# Logs and debug
+*.log
+npm-debug.log*
+.npm
+
+# OS
+.DS_Store
+Thumbs.db
