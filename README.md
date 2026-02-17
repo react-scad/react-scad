@@ -159,7 +159,7 @@ All listed SCAD primitives and operations are implemented. Prop names follow SCA
 
 ### Missing anything?
 
-> If you need a SCAD primitive or feature that isn’t listed here, open an [issue](https://github.com/react-scad/react-scad/issues) or a PR.
+> If you need a SCAD primitive or feature that isn’t listed here, open an [issue](https://github.com/react-scad/react-scad/issues/new) or a PR.
 
 ---
 
