@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
 
+# Default token may be read-only in orgs; ensure Settings → Actions → General
+# has "Read and write permissions" for workflows, or this release step can fail with "Bad credentials".
 jobs:
   bump-and-build:
     runs-on: ubuntu-latest
@@ -145,12 +147,3 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: bump version to $VERSION [skip ci]"
           git push
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Create release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ env.VERSION }}
-          name: v${{ env.VERSION }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
