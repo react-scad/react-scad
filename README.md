@@ -1,8 +1,8 @@
 # react-scad
 
-Monorepo for **React-SCAD**: render JSX to OpenSCAD models using the React reconciler.
+**React-SCAD**: render JSX to OpenSCAD models using the React reconciler.
 
-![Example](./assets/example.png)
+![Example](./assets/example.gif)
 
 | Package | Description |
 | -------- | ------------ |

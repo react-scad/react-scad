@@ -6,7 +6,7 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 - Compose shapes with familiar JSX; get `.scad` source for OpenSCAD or 3D printing
 - Use [@react-scad/cli](../cli) via npx to build and run
 
-![Example](https://github.com/react-scad/react-scad/raw/main/assets/example.png)
+![Example](https://github.com/react-scad/react-scad/raw/main/assets/example.gif)
 
 Install the library and React:
 
