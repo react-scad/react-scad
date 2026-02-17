@@ -1,50 +1,45 @@
 {
-  "name": "@react-scad/react-scad",
-  "version": "0.1.1",
-  "description": "Render JSX to OpenSCAD models using the React reconciler",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "bin": {
-    "react-scad": "cli.js"
-  },
-  "files": [
-    "dist",
-    "cli.js",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "lint": "biome lint .",
-    "check": "biome check --write ."
-  },
-  "dependencies": {
-    "esbuild": "^0.24.0",
-    "react-reconciler": "^0.29.2"
-  },
-  "peerDependencies": {
-    "react": ">=18.0.0"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/node": "^22.10.0",
-    "@types/react": "^18.3.12",
-    "@types/react-reconciler": "^0.33.0",
-    "react": "^18.3.1",
-    "typescript": "^5.6.3"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/react-scad/react-scad"
-  }
+	"name": "@react-scad/react-scad",
+	"version": "0.1.1",
+	"description": "Render JSX to OpenSCAD models using the React reconciler",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"bin": {
+		"react-scad": "cli.js"
+	},
+	"files": ["dist", "cli.js", "README.md", "LICENSE"],
+	"scripts": {
+		"dev": "node cli.js run examples/rocket/main.tsx --watch",
+		"build": "tsc",
+		"format": "biome format --write .",
+		"lint": "biome lint ."
+	},
+	"dependencies": {
+		"esbuild": "^0.24.0",
+		"react-reconciler": "^0.29.2",
+		"@drizzle-team/brocli": "^0.11.0"
+	},
+	"peerDependencies": {
+		"react": ">=18.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.10.0",
+		"@types/react": "^18.3.12",
+		"@types/react-reconciler": "^0.33.0",
+		"react": "^18.3.1",
+		"typescript": "^5.6.3"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/react-scad/react-scad"
+	}
 }
