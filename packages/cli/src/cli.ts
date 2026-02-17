@@ -12,8 +12,6 @@ import * as esbuild from "esbuild";
 const cliRoot = path.dirname(fileURLToPath(import.meta.url));
 const pkgPath = path.join(cliRoot, "..", "package.json");
 const pkg = JSON.parse(readFileSync(pkgPath, "utf8")) as { version: string };
-const require = createRequire(import.meta.url);
-const reactScadMain = require.resolve("@react-scad/core");
 
 const noColor = process.env.NO_COLOR != null || !process.stdout.isTTY;
 const c = {
@@ -90,17 +88,21 @@ const log = {
   },
 };
 
-const reactScadResolver: esbuild.Plugin = {
-  name: "react-scad-resolver",
-  setup(build) {
-    build.onResolve(
-      { filter: /^(react-scad|@react-scad\/(?:core|react-scad))(\/.*)?$/ },
-      () => ({
-        path: reactScadMain,
-      }),
-    );
-  },
-};
+function createReactScadResolver(entryDir: string): esbuild.Plugin {
+  const require = createRequire(import.meta.url);
+  const reactScadMain = require.resolve("@react-scad/core", {
+    paths: [entryDir],
+  });
+  return {
+    name: "react-scad-resolver",
+    setup(build) {
+      build.onResolve(
+        { filter: /^(react-scad|@react-scad\/(?:core|react-scad))(\/.*)?$/ },
+        () => ({ path: reactScadMain }),
+      );
+    },
+  };
+}
 
 function runScript(outFile: string, quiet = false): Promise<number | null> {
   return new Promise((resolve) => {
@@ -149,6 +151,7 @@ const runCommand = command({
       watchMode ? "react-scad-watch.mjs" : `react-scad-${Date.now()}.mjs`,
     );
 
+    const entryDir = path.dirname(entry);
     const buildOpts: esbuild.BuildOptions = {
       entryPoints: [entry],
       bundle: true,
@@ -156,7 +159,7 @@ const runCommand = command({
       outfile: outFile,
       platform: "node",
       jsx: "automatic",
-      plugins: [reactScadResolver],
+      plugins: [createReactScadResolver(entryDir)],
     };
 
     async function buildAndRun(): Promise<number | null | false> {

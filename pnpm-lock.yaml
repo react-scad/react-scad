@@ -36,9 +36,6 @@ importers:
       '@drizzle-team/brocli':
         specifier: ^0.11.0
         version: 0.11.0
-      '@react-scad/core':
-        specifier: workspace:*
-        version: link:../core
       esbuild:
         specifier: ^0.24.0
         version: 0.24.2
