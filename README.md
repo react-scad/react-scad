@@ -180,10 +180,10 @@ All listed SCAD primitives and operations are implemented. Prop names follow SCA
 3. **Build and test** before committing:
    ```bash
    pnpm run build
-   pnpm run dev          # optional: smoke-test the example
+   pnpm run dev
    ```
 
-4. **Format and lint** (all code in the repo):
+4. **Format and lint** your code:
    ```bash
    pnpm run format
    pnpm run lint
