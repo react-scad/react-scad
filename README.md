@@ -1,16 +1,22 @@
 # react-scad
 
-Render JSX to **SCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
+Render JSX to **OpenSCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
 
-- Write declarative 3D with React components; no imperative SCAD scripting
-- Compose shapes with familiar JSX; get `.scad` source for OpenSCAD or 3D printing
-- Run `.tsx` entry files with [tsx](https://github.com/privatenumber/tsx) (e.g. `npx tsx main.tsx`)
+- Describe models as a tree of components instead of imperative SCAD; avoids nested modules and parameter threading.
+- Same React/JSX mental model (components, props, composition), output is 3D.
+- Writes plain `.scad` files for [OpenSCAD](https://openscad.org/) or any slicer.
 
 ## Preview
 
 ![Example](./assets/example.gif)
 
 *Rocket example with animated rotation.*
+
+## Why react-scad?
+
+SCAD is good for parametric 3D but scripts are imperative and nesting gets heavy; composing modules and passing parameters is tedious.
+
+A lot of people already think in components and JSX from building UIs. **react-scad** aims to facilitate that same way of thinking for parametric 3D.
 
 ## Getting Started
 
@@ -33,10 +39,6 @@ pnpm add react @react-scad/core
 yarn add react @react-scad/core
 ```
 
-### How it works
-
-Call `createRoot("model.scad")` with the filename you want. Then call `root.render(<YourScene />)` with your JSX. Each time you render, react-scad turns that scene into SCAD code and writes it to the file.
-
 ### Minimal example
 
 Create a file `main.tsx` (or `main.jsx`):
@@ -44,7 +46,7 @@ Create a file `main.tsx` (or `main.jsx`):
 ```jsx
 import { createRoot, Cube, Sphere, Union } from "@react-scad/core";
 
-// Output path: the .scad file that will be written (relative to cwd when run)
+// Output path: the .scad file that will be created
 const root = createRoot("model.scad");
 
 root.render(
@@ -55,9 +57,9 @@ root.render(
 );
 ```
 
-- `createRoot("model.scad")` — creates a root that writes to `model.scad`.
-- `Union` — CSG union of all children (like `union()` in SCAD).
-- `Cube` / `Sphere` — props match SCAD: `size`, `center`, `r`, `$fn`, etc.
+- `createRoot("model.scad")`: creates a root that writes to `model.scad`.
+- `Union`: CSG union of all children (like `union()` in SCAD).
+- `Cube` / `Sphere`: props match SCAD: `size`, `center`, `r`, `$fn`, etc.
 
 ### Run and write the `.scad` file
 
@@ -73,14 +75,14 @@ Watch mode (re-run on save):
 npx tsx watch main.tsx
 ```
 
-Run from the directory that contains `main.tsx` (or use the path to it). The output path you passed to `createRoot()` is relative to the current working directory.
+Run from the directory that contains `main.tsx` (or use the path to it).
 
 ### View the result
 
 - Open the generated `.scad` file in [OpenSCAD](https://openscad.org/) to preview, export STL, or tweak.
 - Or import the `.scad` (or an exported STL) into your slicer for 3D printing.
 
-### Controlling output (custom path or in-memory)
+## Advanced
 
 To write to a custom path or get the SCAD string in memory instead of using `createRoot(path)`, use a container and `toScad`:
 
@@ -100,14 +102,6 @@ render(
 const scadCode = toScad(container);
 writeFileSync("out/model.scad", scadCode);
 // or use scadCode however you like
-```
-
-Node doesn't run `.tsx` by itself. Use **tsx** (recommended) or bundle with esbuild and run with Node:
-
-```bash
-npx tsx main.tsx
-# or
-npx esbuild main.tsx --bundle --platform=node --outfile=run.js && node run.js
 ```
 
 ## Primitives (SCAD coverage)
@@ -143,27 +137,6 @@ All listed SCAD primitives and operations are implemented. Prop names follow SCA
 | inline code | `Raw` | ✓ |
 | `surface()` | `Surface` | ✓ |
 | `import()` | `Import` | ✓ |
-
-## Why react-scad?
-
-OpenSCAD is great for parametric 3D, but SCAD code is imperative and nesting gets messy. Composing modules and passing parameters can be tedious.
-
-With react-scad you build a tree of SCAD primitives using React components. The reconciler runs with a custom host config that builds an internal SCAD tree (no DOM). Serialization turns that tree into SCAD source.
-
-**JSX → React tree → host config → SCAD tree → SCAD source.**
-
-You get declarative composition, reuse via components, and the same `.scad` output you'd use in OpenSCAD or slicers.
-
-## Example
-
-The [rocket example](./examples/rocket) shows a simple model with animated rotation. From the repo root:
-
-```bash
-pnpm run dev          # watch mode
-pnpm run start        # one-off run
-```
-
-Or from `examples/rocket`: `npx tsx main.tsx` or `npx tsx watch main.tsx`.
 
 ## Contributing
 
@@ -202,4 +175,4 @@ Or from `examples/rocket`: `npx tsx main.tsx` or `npx tsx watch main.tsx`.
 
 ## License
 
-MIT © Leon Meka and contributors.
+MIT
