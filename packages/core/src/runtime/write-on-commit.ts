@@ -6,10 +6,7 @@ import type { ScadContainer } from "../types.js";
 
 const writeOnCommitPaths = new WeakMap<ScadContainer, string>();
 
-export function registerWriteOnCommit(
-	container: ScadContainer,
-	path: string,
-): void {
+export function registerWriteOnCommit(container: ScadContainer, path: string): void {
 	writeOnCommitPaths.set(container, path);
 }
 

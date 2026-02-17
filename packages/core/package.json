@@ -1,53 +1,41 @@
 {
-  "name": "@react-scad/core",
-  "version": "0.1.13",
-  "description": "Render JSX to OpenSCAD models using the React reconciler",
-  "keywords": [
-    "react",
-    "react-scad",
-    "openscad",
-    "jsx",
-    "3d",
-    "cad",
-    "react-reconciler"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/react-scad/react-scad"
-  },
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "format": "biome format --write .",
-    "lint": "biome lint ."
-  },
-  "dependencies": {
-    "react-reconciler": "^0.29.2"
-  },
-  "peerDependencies": {
-    "react": ">=18.0.0"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@types/node": "^22.10.0",
-    "@types/react": "^18.3.12",
-    "@types/react-reconciler": "^0.33.0",
-    "react": "^18.3.1",
-    "typescript": "^5.6.3"
-  }
+	"name": "@react-scad/core",
+	"version": "0.1.13",
+	"description": "Render JSX to OpenSCAD models using the React reconciler",
+	"keywords": ["react", "react-scad", "openscad", "jsx", "3d", "cad", "react-reconciler"],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/react-scad/react-scad"
+	},
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		}
+	},
+	"files": ["dist", "README.md", "LICENSE"],
+	"scripts": {
+		"build": "tsc",
+		"format": "biome format --write .",
+		"lint": "biome lint ."
+	},
+	"dependencies": {
+		"react-reconciler": "^0.29.2"
+	},
+	"peerDependencies": {
+		"react": ">=18.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.10.0",
+		"@types/react": "^18.3.12",
+		"@types/react-reconciler": "^0.33.0",
+		"react": "^18.3.1",
+		"typescript": "^5.6.3"
+	}
 }
