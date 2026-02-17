@@ -1,6 +1,6 @@
 {
   "name": "@react-scad/react-scad",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Render JSX to OpenSCAD models using the React reconciler",
   "type": "module",
   "main": "./dist/index.js",
