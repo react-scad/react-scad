@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bump version (both packages)
+      - name: Bump version
         id: bump
         run: |
           node -e "
@@ -40,11 +40,10 @@ jobs:
           const v = p.version.split('.').map(Number);
           v[2]++;
           const newV = v.join('.');
-          for (const path of ['packages/core/package.json', 'packages/cli/package.json']) {
-            const j = JSON.parse(fs.readFileSync(path, 'utf8'));
-            j.version = newV;
-            fs.writeFileSync(path, JSON.stringify(j, null, 2));
-          }
+          const path = 'packages/core/package.json';
+          const j = JSON.parse(fs.readFileSync(path, 'utf8'));
+          j.version = newV;
+          fs.writeFileSync(path, JSON.stringify(j, null, 2));
           "
           echo "version=$(node -p "require('./packages/core/package.json').version")" >> $GITHUB_OUTPUT
 
@@ -81,8 +80,8 @@ jobs:
         run: |
           rm -rf packages
           mkdir -p packages
-          mv core cli packages/
-          ls -la packages/core packages/cli
+          mv core packages/
+          ls -la packages/core
 
       - name: Publish @react-scad/core
         run: npm publish --provenance --access public
@@ -90,41 +89,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  publish-cli:
-    runs-on: ubuntu-latest
-    needs: bump-and-build
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Download built packages
-        uses: actions/download-artifact@v4
-        with:
-          name: built-packages
-
-      - name: Restore packages
-        run: |
-          rm -rf packages
-          mkdir -p packages
-          mv core cli packages/
-
-      - name: Publish @react-scad/cli
-        run: npm publish --provenance --access public
-        working-directory: packages/cli
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
   release:
     runs-on: ubuntu-latest
-    needs: [publish-react-scad, publish-cli]
+    needs: publish-react-scad
     permissions:
       contents: write
     steps:
@@ -139,11 +106,11 @@ jobs:
         run: |
           rm -rf packages
           mkdir -p packages
-          mv core cli packages/
+          mv core packages/
           VERSION=$(node -p "require('./packages/core/package.json').version")
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add packages/core/package.json packages/cli/package.json
+          git add packages/core/package.json
           git diff --staged --quiet || git commit -m "chore: bump version to $VERSION [skip ci]"
           git push
           echo "VERSION=$VERSION" >> $GITHUB_ENV
