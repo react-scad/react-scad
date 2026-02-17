@@ -22,13 +22,11 @@ Entry can be a `.jsx` or `.tsx` file. The CLI writes the `.scad` file to your cu
 
 ## Install
 
-Install the package and React (peer dependency):
+Install the package and React:
 
 ```bash
 npm install react react-scad
 ```
-
-**Peer dependency:** `react` >= 18.
 
 ### Minimal example
 
@@ -45,20 +43,7 @@ root.render(
 );
 ```
 
-## API Reference
-
-### `createRoot(path?)`
-
-Creates a root. Pass a path (file path string) so `root.render()` writes the `.scad` file automatically.
-
-- **`root.render(element)`** — Renders the React tree and writes the file (if `path` was set).
-- **`root.toScad()`** — Returns the OpenSCAD source string.
-
-### `createContainer()` / `render()` / `toScad()`
-
-Lower-level API: create a container, render into it, then call `toScad(container)` to get the string. Use this when you don't want to write a file (e.g. in the browser or a custom pipeline).
-
-### Primitives (OpenSCAD coverage)
+## Primitives (OpenSCAD coverage)
 
 All listed OpenSCAD primitives and operations are implemented. Prop names follow OpenSCAD where it makes sense (`r`, `h`, `size`, `center`, `$fn`, etc.).
 
