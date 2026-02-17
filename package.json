@@ -12,9 +12,14 @@
 		}
 	},
 	"bin": {
-		"react-scad": "./cli.js"
+		"react-scad": "cli.js"
 	},
-	"files": ["dist", "cli.js", "README.md", "LICENSE"],
+	"files": [
+		"dist",
+		"cli.js",
+		"README.md",
+		"LICENSE"
+	],
 	"scripts": {
 		"build": "tsc",
 		"format": "biome format --write .",
