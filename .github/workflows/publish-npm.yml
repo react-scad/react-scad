@@ -25,6 +25,10 @@ jobs:
       - name: Bump version
         run: npm version patch --no-git-tag-version
 
+      - name: Get version
+        id: version
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Build
         run: npm run build
 
@@ -40,3 +44,12 @@ jobs:
           git add package.json package-lock.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "Bump version [skip ci]"
           git push
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: v${{ steps.version.outputs.VERSION }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

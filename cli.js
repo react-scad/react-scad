@@ -2,9 +2,13 @@
 
 import { spawn } from "node:child_process";
 import { unlinkSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import * as esbuild from "esbuild";
+
+const pkgRoot = path.dirname(fileURLToPath(import.meta.url));
+const reactScadMain = path.join(pkgRoot, "dist/index.js");
 
 const args = process.argv.slice(2);
 const watchMode = args.includes("--watch");
@@ -12,7 +16,7 @@ const entryArg = args.find((a) => a !== "--watch");
 
 if (!entryArg) {
 	console.error("Usage: react-scad <entry> [--watch]");
-	console.error("  entry   Path to .jsx or .tsx file (e.g. ./example/sandbox.jsx)");
+	console.error("  entry   Path to .jsx or .tsx file (e.g. ./examples/rocket/main.tsx)");
 	console.error("  --watch Rebuild and run on file changes");
 	process.exit(1);
 }
@@ -23,6 +27,15 @@ const outFile = path.join(
 	watchMode ? "react-scad-watch.js" : `react-scad-${Date.now()}.js`,
 );
 
+const reactScadResolver = {
+	name: "react-scad-resolver",
+	setup(build) {
+		build.onResolve({ filter: /^(react-scad|@react-scad\/react-scad)(\/.*)?$/ }, () => ({
+			path: reactScadMain,
+		}));
+	},
+};
+
 const buildOpts = {
 	entryPoints: [entry],
 	bundle: true,
@@ -30,6 +43,7 @@ const buildOpts = {
 	outfile: outFile,
 	platform: "node",
 	jsx: "automatic",
+	plugins: [reactScadResolver],
 };
 
 function runScript() {
@@ -72,7 +86,7 @@ if (watchMode) {
 
 	const ctx = await esbuild.context({
 		...buildOpts,
-		plugins: [runPlugin],
+		plugins: [...buildOpts.plugins, runPlugin],
 	});
 
 	console.log(`Watching ${entry} and dependencies…`);

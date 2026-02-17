@@ -13,13 +13,13 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 ### Quick Start
 
 ```bash
-npx react-scad ./example/sandbox.jsx
+npx @react-scad/react-scad@latest ./examples/rocket/main.tsx
 ```
 
 With **watch** (rebuild on save):
 
 ```bash
-npx react-scad ./example/sandbox.jsx --watch
+npx @react-scad/react-scad@latest ./examples/rocket/main.tsx --watch
 ```
 
 Entry can be a `.jsx` or `.tsx` file. The CLI writes the `.scad` file to your current working directory.
@@ -29,7 +29,7 @@ Entry can be a `.jsx` or `.tsx` file. The CLI writes the `.scad` file to your cu
 Install the package and React:
 
 ```bash
-npm install react react-scad
+npm install react react-scad@latest
 ```
 
 ### Minimal example
