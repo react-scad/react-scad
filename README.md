@@ -53,6 +53,7 @@ yarn add react @react-scad/core
 Create a file `main.tsx` (or `main.jsx`):
 
 ```jsx
+import React from "react";
 import { createRoot, Cube, Sphere, Union } from "@react-scad/core";
 
 // Output path: the .scad file that will be created

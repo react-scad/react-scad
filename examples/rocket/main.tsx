@@ -1,3 +1,4 @@
+import React from "react";
 import { Translate, createRoot } from "@react-scad/core";
 import { RocketBody } from "./components/rocket-body";
 import { RocketHead } from "./components/rocket-head";

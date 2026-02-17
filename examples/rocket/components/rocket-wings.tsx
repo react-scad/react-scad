@@ -1,3 +1,4 @@
+import React from "react";
 import { LinearExtrude, Polygon, Rotate, Translate } from "@react-scad/core";
 
 const WING_POINTS: [number, number][] = [

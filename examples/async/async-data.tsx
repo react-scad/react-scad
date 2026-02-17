@@ -1,3 +1,4 @@
+import React from "react";
 import { createRoot, LinearExtrude, Text } from "@react-scad/core";
 import { useEffect, useState } from "react";
 
