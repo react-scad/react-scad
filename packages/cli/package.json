@@ -1,6 +1,6 @@
 {
   "name": "@react-scad/cli",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "CLI for react-scad: build and run .jsx/.tsx entry files",
   "keywords": [
     "react-scad",
