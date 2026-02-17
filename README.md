@@ -8,18 +8,6 @@ Monorepo for **React-SCAD**: render JSX to OpenSCAD models using the React recon
 | [**@react-scad/cli**](./packages/cli) | CLI: build and run `.jsx`/`.tsx` entry files (esbuild + watch) |
 | [**example-rocket**](./examples/rocket) | Example: rocket with animated rotation |
 
-## Development
-
-```bash
-pnpm install
-pnpm run build          # build library + CLI
-pnpm run dev            # run rocket example in watch mode
-pnpm run format         # format all packages and examples
-pnpm run lint           # lint all packages and examples
-```
-
-See [packages/react-scad/README.md](./packages/react-scad/README.md) for usage, API, and install instructions.
-
 ## Contributing
 
 1. **Fork and clone** the repo, then install dependencies:
