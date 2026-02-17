@@ -6,6 +6,10 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 - Compose shapes with familiar JSX; get `.scad` source for OpenSCAD or 3D printing
 - Use the CLI to bundle and export in one go, with optional watch mode
 
+## Preview
+
+![Example](./assets/example.png)
+
 ### Quick Start
 
 ```bash
