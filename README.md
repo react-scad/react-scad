@@ -4,6 +4,8 @@
 
 ![Example](./assets/example.gif)
 
+*Rocket example with animated rotation.*
+
 | Package | Description |
 | -------- | ------------ |
 | [**@react-scad/core**](./packages/react-scad) | Core library: React reconciler → SCAD tree → OpenSCAD source |

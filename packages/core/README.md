@@ -8,6 +8,8 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 
 ![Example](https://github.com/react-scad/react-scad/raw/main/assets/example.gif)
 
+*Rocket example with animated rotation.*
+
 Install the library and React:
 
 ```bash
