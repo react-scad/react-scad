@@ -138,6 +138,8 @@ All listed SCAD primitives and operations are implemented. Prop names follow SCA
 | `surface()` | `Surface` | ✓ |
 | `import()` | `Import` | ✓ |
 
+If you need a SCAD primitive or feature that isn’t listed here, open an [issue](https://github.com/react-scad/react-scad/issues) or a PR.
+
 ## Contributing
 
 1. **Fork and clone** the repo, then install dependencies:
