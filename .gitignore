@@ -8,8 +8,7 @@ dist/
 # Generated OpenSCAD (CLI output)
 *.scad
 
-# Lockfiles
-pnpm-lock.yaml
+# Lockfiles (we commit pnpm-lock.yaml for reproducible installs)
 .pnpm-store/
 
 # Logs and debug
