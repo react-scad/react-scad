@@ -26,7 +26,7 @@ A lot of people already think in components and JSX from building UIs. **react-s
 
 ## Getting Started
 
-### Try it out!
+### [Try it out!](https://github.com/react-scad/example)
 
 A minimal runnable example is available at **[react-scad/example](https://github.com/react-scad/example)**. Clone it, `npm install`, then `npm start` to generate the SCAD file.
 
