@@ -81,7 +81,7 @@ jobs:
           mv built-packages packages
           ls -la packages/react-scad packages/cli
 
-      - name: Publish @react-scad/react-scad
+      - name: Publish @react-scad/core
         run: npm publish --provenance --access public
         working-directory: packages/react-scad
         env:

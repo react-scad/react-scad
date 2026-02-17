@@ -4,12 +4,14 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 
 - Write declarative 3D with React components; no imperative OpenSCAD scripting
 - Compose shapes with familiar JSX; get `.scad` source for OpenSCAD or 3D printing
-- Use [@react-scad/cli](../cli) via npx to build and run (no need to install the CLI)
+- Use [@react-scad/cli](../cli) via npx to build and run
+
+![Example](https://github.com/react-scad/react-scad/raw/main/assets/example.png)
 
 Install the library and React:
 
 ```bash
-npm install react @react-scad/react-scad
+npm install react @react-scad/core
 ```
 
 ### Minimal example
@@ -27,7 +29,7 @@ root.render(
 );
 ```
 
-Save as `main.tsx`, then run it (CLI via npx—no need to install it):
+Save as `main.tsx`, then run it:
 
 ```bash
 npx @react-scad/cli run main.tsx

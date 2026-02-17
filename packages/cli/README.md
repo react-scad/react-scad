@@ -1,6 +1,6 @@
 # @react-scad/cli
 
-CLI for [react-scad](../react-scad): build and run `.jsx`/`.tsx` entry files with esbuild. Use it with **npx** so you don’t need to add it to your project.
+CLI for [react-scad](../react-scad): build and run `.jsx`/`.tsx` entry files with esbuild.
 
 ## Build (developers)
 
@@ -12,8 +12,6 @@ pnpm run build
 
 ## Usage
 
-Run with **npx** (no install required):
-
 ```bash
 npx @react-scad/cli run <entry> [--watch]
 ```
@@ -21,7 +19,7 @@ npx @react-scad/cli run <entry> [--watch]
 - **entry** – Path to your `.jsx` or `.tsx` entry file (e.g. `main.tsx`)
 - **--watch**, **-w** – Rebuild and run on file changes
 
-Your project needs `react` (and `@react-scad/react-scad` for the library); the CLI bundles and resolves them.
+Your project needs `react` and `@react-scad/core`; the CLI bundles and resolves them.
 
 ### Examples
 
@@ -37,7 +35,7 @@ Watch mode (rebuild on save):
 npx @react-scad/cli run main.tsx --watch
 ```
 
-The CLI bundles your entry and dependencies (resolving `react-scad` / `@react-scad/react-scad`), runs the script, and writes the `.scad` output to your current working directory.
+The CLI bundles your entry and dependencies (resolving `react-scad` / `@react-scad/core`), runs the script, and writes the `.scad` output to your current working directory.
 
 ## Commands
 

@@ -8,7 +8,7 @@
     "start": "npx @react-scad/cli run main.tsx"
   },
   "dependencies": {
-    "@react-scad/react-scad": "workspace:*",
+    "@react-scad/core": "workspace:*",
     "react": "^18.3.1"
   },
   "devDependencies": {
