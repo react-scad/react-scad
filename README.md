@@ -51,35 +51,35 @@ root.render(
 
 All listed OpenSCAD primitives and operations are implemented. Prop names follow OpenSCAD where it makes sense (`r`, `h`, `size`, `center`, `$fn`, etc.).
 
-| OpenSCAD | react-scad | Example props |
-| -------- | ---------- | -------------- |
+| OpenSCAD | react-scad | Implemented |
+| -------- | ---------- | :---------: |
 | **3D primitives** | | |
-| `cube()` | `Cube` | `size`, `center` |
-| `sphere()` | `Sphere` | `r`, `d`, `$fn` |
-| `cylinder()` | `Cylinder` | `h`, `r1`, `r2`, `$fn` |
-| `polyhedron()` | `Polyhedron` | `points`, `faces`, `convexity` |
+| `cube()` | `Cube` | ✓ |
+| `sphere()` | `Sphere` | ✓ |
+| `cylinder()` | `Cylinder` | ✓ |
+| `polyhedron()` | `Polyhedron` | ✓ |
 | **2D primitives** | | |
-| `square()` | `Square` | `size`, `center` |
-| `circle()` | `Circle` | `r`, `d`, `$fn` |
-| `polygon()` | `Polygon` | `points`, `paths`, `convexity` |
+| `square()` | `Square` | ✓ |
+| `circle()` | `Circle` | ✓ |
+| `polygon()` | `Polygon` | ✓ |
 | **CSG** | | |
-| `union()` | `Union` | children |
-| `difference()` | `Difference` | children |
-| `intersection()` | `Intersection` | children |
+| `union()` | `Union` | ✓ |
+| `difference()` | `Difference` | ✓ |
+| `intersection()` | `Intersection` | ✓ |
 | **Transforms** | | |
-| `translate()` | `Translate` | `v` (vector) |
-| `rotate()` | `Rotate` | `a` (angles), optional `v` |
-| `scale()` | `Scale` | `v` (vector) |
+| `translate()` | `Translate` | ✓ |
+| `rotate()` | `Rotate` | ✓ |
+| `scale()` | `Scale` | ✓ |
 | **2D → 3D** | | |
-| `linear_extrude()` | `LinearExtrude` | `height`, `center`, `twist`, `scale`; one 2D child |
-| `rotate_extrude()` | `RotateExtrude` | `angle`, `convexity`, `$fn`; one 2D child |
+| `linear_extrude()` | `LinearExtrude` | ✓ |
+| `rotate_extrude()` | `RotateExtrude` | ✓ |
 | **Text** | | |
-| `text()` | `Text` | `text`, `size`, `font`, `halign`, `valign` |
+| `text()` | `Text` | ✓ |
 | **Other** | | |
-| `{ }` (group) | `Group` | children |
-| inline code | `Raw` | `code` |
-| `surface()` | `Surface` | `file`, `center`, `invert`, `convexity` |
-| `import()` | `Import` | `file`, `convexity`, `layer` |
+| `{ }` (group) | `Group` | ✓ |
+| inline code | `Raw` | ✓ |
+| `surface()` | `Surface` | ✓ |
+| `import()` | `Import` | ✓ |
 
 ## Why react-scad?
 
