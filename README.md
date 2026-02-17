@@ -2,15 +2,17 @@
 
 **React-SCAD**: render JSX to OpenSCAD models using the React reconciler.
 
-![Example](./assets/example.gif)
-
-*Rocket example with animated rotation.*
-
 | Package | Description |
 | -------- | ------------ |
 | [**@react-scad/core**](./packages/react-scad) | Core library: React reconciler → SCAD tree → OpenSCAD source |
 | [**@react-scad/cli**](./packages/cli) | CLI: build and run `.jsx`/`.tsx` entry files (esbuild + watch) |
 | [**example-rocket**](./examples/rocket) | Example: rocket with animated rotation |
+
+## Preview
+
+![Example](./assets/example.gif)
+
+*Rocket example with animated rotation.*
 
 ## Contributing
 

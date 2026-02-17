@@ -6,21 +6,46 @@ Render JSX to **OpenSCAD** models using the [React reconciler](https://github.co
 - Compose shapes with familiar JSX; get `.scad` source for OpenSCAD or 3D printing
 - Use [@react-scad/cli](../cli) via npx to build and run
 
+## Preview
+
 ![Example](https://github.com/react-scad/react-scad/raw/main/assets/example.gif)
 
 *Rocket example with animated rotation.*
 
-Install the library and React:
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** 18+
+- **React** 18 or later (peer dependency)
+
+### Install
 
 ```bash
 npm install react @react-scad/core
 ```
 
+With pnpm or yarn:
+
+```bash
+pnpm add react @react-scad/core
+# or
+yarn add react @react-scad/core
+```
+
+### How it works
+
+Call `createRoot("model.scad")` with the filename you want. Then call `root.render(<YourScene />)` with your JSX. Each time you render, react-scad turns that scene into SCAD code and writes it to the file.
+
 ### Minimal example
+
+Create a file `main.tsx` (or `main.jsx`):
 
 ```jsx
 import { createRoot, Cube, Sphere, Union } from "@react-scad/core";
 
+// Output path: the .scad file that will be written (relative to cwd when run)
 const root = createRoot("model.scad");
 
 root.render(
@@ -31,12 +56,36 @@ root.render(
 );
 ```
 
-Save as `main.tsx`, then run it:
+- `createRoot("model.scad")` — creates a root that writes to `model.scad`.
+- `Union` — CSG union of all children (like `union()` in SCAD).
+- `Cube` / `Sphere` — props match SCAD: `size`, `center`, `r`, `$fn`, etc.
+
+### Run and write the `.scad` file
+
+Use [@react-scad/cli](../cli) to run your entry file. The CLI bundles your code, runs it, and the root writes the `.scad` file into the **current working directory** (the directory from which you run the command).
+
+One-off run:
 
 ```bash
 npx @react-scad/cli run main.tsx
+```
+
+Watch mode (rebuild and run on save):
+
+```bash
 npx @react-scad/cli run main.tsx --watch
 ```
+
+So if you run from `my-project/`, `model.scad` will appear in `my-project/model.scad`.
+
+### View the result
+
+- Open the generated `.scad` file in [OpenSCAD](https://openscad.org/) to preview, export STL, or tweak.
+- Or import the `.scad` (or an exported STL) into your slicer for 3D printing.
+
+### Using the API without the CLI
+
+If you run your app with Node or another bundler (not the react-scad CLI), the same code works: `createRoot("model.scad")` will write the file to the current working directory when `root.render()` runs. You can also create a container with `createContainer()`, call `render(<Scene />, container)`, then get the SCAD string with `toScad(container)` and write or use it yourself.
 
 ## Primitives (OpenSCAD coverage)
 
