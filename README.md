@@ -58,56 +58,39 @@ Creates a root. Pass a path (file path string) so `root.render()` writes the `.s
 
 Lower-level API: create a container, render into it, then call `toScad(container)` to get the string. Use this when you don't want to write a file (e.g. in the browser or a custom pipeline).
 
-### Primitives
+### Primitives (OpenSCAD coverage)
 
-| Component       | OpenSCAD         | Example props               |
-| --------------- | ---------------- | --------------------------- |
-| `Cube`          | `cube()`         | `size`, `center`            |
-| `Sphere`        | `sphere()`       | `r`, `d`, `$fn`             |
-| `Cylinder`      | `cylinder()`     | `h`, `r1`, `r2`, `$fn`      |
-| `Union`         | `union()`        | children                    |
-| `Difference`    | `difference()`   | children                    |
-| `Intersection`  | `intersection()` | children                    |
-| `Translate`     | `translate()`    | `v` (vector)                |
-| `Rotate`        | `rotate()`       | `a` (angles), optional `v`  |
-| `Scale`         | `scale()`        | `v` (vector)                |
-| `Group`         | `{ }`            | children                    |
+All listed OpenSCAD primitives and operations are implemented. Prop names follow OpenSCAD where it makes sense (`r`, `h`, `size`, `center`, `$fn`, etc.).
 
-Prop names follow OpenSCAD where it makes sense (`r`, `h`, `size`, `center`, `$fn`, etc.).
-
-### OpenSCAD coverage
-
-Which OpenSCAD primitives and operations are implemented in react-scad:
-
-| OpenSCAD | react-scad | Status |
-| -------- | ---------- | ------ |
+| OpenSCAD | react-scad | Example props |
+| -------- | ---------- | -------------- |
 | **3D primitives** | | |
-| `cube()` | `Cube` | ✅ Implemented |
-| `sphere()` | `Sphere` | ✅ Implemented |
-| `cylinder()` | `Cylinder` | ✅ Implemented |
-| `polyhedron()` | — | ❌ Not implemented |
+| `cube()` | `Cube` | `size`, `center` |
+| `sphere()` | `Sphere` | `r`, `d`, `$fn` |
+| `cylinder()` | `Cylinder` | `h`, `r1`, `r2`, `$fn` |
+| `polyhedron()` | `Polyhedron` | `points`, `faces`, `convexity` |
 | **2D primitives** | | |
-| `square()` | — | ❌ Not implemented |
-| `circle()` | — | ❌ Not implemented |
-| `polygon()` | — | ❌ Not implemented |
+| `square()` | `Square` | `size`, `center` |
+| `circle()` | `Circle` | `r`, `d`, `$fn` |
+| `polygon()` | `Polygon` | `points`, `paths`, `convexity` |
 | **CSG** | | |
-| `union()` | `Union` | ✅ Implemented |
-| `difference()` | `Difference` | ✅ Implemented |
-| `intersection()` | `Intersection` | ✅ Implemented |
+| `union()` | `Union` | children |
+| `difference()` | `Difference` | children |
+| `intersection()` | `Intersection` | children |
 | **Transforms** | | |
-| `translate()` | `Translate` | ✅ Implemented |
-| `rotate()` | `Rotate` | ✅ Implemented |
-| `scale()` | `Scale` | ✅ Implemented |
+| `translate()` | `Translate` | `v` (vector) |
+| `rotate()` | `Rotate` | `a` (angles), optional `v` |
+| `scale()` | `Scale` | `v` (vector) |
 | **2D → 3D** | | |
-| `linear_extrude()` | — | ❌ Not implemented |
-| `rotate_extrude()` | — | ❌ Not implemented |
+| `linear_extrude()` | `LinearExtrude` | `height`, `center`, `twist`, `scale`; one 2D child |
+| `rotate_extrude()` | `RotateExtrude` | `angle`, `convexity`, `$fn`; one 2D child |
 | **Text** | | |
-| `text()` | — | ❌ Not implemented |
+| `text()` | `Text` | `text`, `size`, `font`, `halign`, `valign` |
 | **Other** | | |
-| `{ }` (group) | `Group` | ✅ Implemented |
-| inline code | `Raw` | ✅ Implemented |
-| `surface()` | — | ❌ Not implemented |
-| `import()` | — | ❌ Not implemented |
+| `{ }` (group) | `Group` | children |
+| inline code | `Raw` | `code` |
+| `surface()` | `Surface` | `file`, `center`, `invert`, `convexity` |
+| `import()` | `Import` | `file`, `convexity`, `layer` |
 
 ## Why react-scad?
 
@@ -119,30 +102,12 @@ With react-scad you build a tree of SCAD primitives using React components. The 
 
 You get declarative composition, reuse via components, and the same `.scad` output you’d use in OpenSCAD or slicers.
 
-## Project structure
+## Acknowledgements
 
-- **`src/types.ts`** — Shared types (node shapes, `Vec3`, `ScadExpr`, etc.). Used by runtime, primitives, and serialize.
-- **`src/utils.ts`** — Shared helpers (e.g. `formatVec3` for serialization).
-- **`src/primitives/`** — React components (Cube, Sphere, Union, …) and their per-node serializers.
-- **`src/runtime/`** — React reconciler host config: React tree → ScadNode tree (create/update/clone, root, render).
-- **`src/serialize/`** — ScadNode tree → OpenSCAD source string (`toScad`).
-
-Public API is re-exported from `src/index.ts`.
-
-## Development (from repo)
-
-```bash
-git clone <repo>
-cd react-scad
-npm install
-npm run build
-```
-
-- **`npm run example:jsx`** — Run `example/sandbox.jsx` once.
-- **`npm run dev`** — Watch `example/sandbox.jsx` and rebuild on change.
-- **`npx react-scad ./path/to/entry.tsx`** — Run any entry file.
-- **`npx react-scad ./path/to/entry.tsx --watch`** — Run with watch.
+- [React](https://react.dev/) and the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler) for the rendering model that makes this approach possible.
+- [OpenSCAD](https://openscad.org/) for the script-based CAD language and documentation.
 
 ## License
 
-MIT
+React SCAD is MIT-licensed open-source software by Leon Meka and 
+contributors.
