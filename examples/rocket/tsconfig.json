@@ -10,7 +10,7 @@
 		"noEmit": true,
 		"baseUrl": ".",
 		"paths": {
-			"react-scad": ["../../packages/react-scad/dist/index.d.ts"]
+			"react-scad": ["../../packages/core/dist/index.d.ts"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx"]

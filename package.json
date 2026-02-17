@@ -2,21 +2,25 @@
   "name": "react-scad",
   "private": true,
   "description": "React-SCAD monorepo",
-  "scripts": {
-    "build": "pnpm -r run build",
-    "dev": "pnpm --filter @react-scad/example-rocket run dev",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "lint": "biome lint .",
-    "check": "biome check --write ."
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "react": "^18.3.1"
-  },
+  "keywords": [
+    "react-scad",
+    "openscad",
+    "monorepo"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-scad/react-scad"
+  },
+  "scripts": {
+    "build": "pnpm -r run build",
+    "check": "biome check --write .",
+    "dev": "pnpm --filter @react-scad/example-rocket run dev",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
   }
 }

@@ -34,17 +34,20 @@ jobs:
         run: |
           node -e "
           const fs = require('fs');
-          const p = require('./packages/react-scad/package.json');
+          const p = require('./packages/core/package.json');
           const v = p.version.split('.').map(Number);
           v[2]++;
           const newV = v.join('.');
-          for (const path of ['packages/react-scad/package.json', 'packages/cli/package.json']) {
+          for (const path of ['packages/core/package.json', 'packages/cli/package.json']) {
             const j = JSON.parse(fs.readFileSync(path, 'utf8'));
             j.version = newV;
             fs.writeFileSync(path, JSON.stringify(j, null, 2));
           }
+          const cli = require('./packages/cli/package.json');
+          cli.dependencies['@react-scad/core'] = '^' + newV;
+          fs.writeFileSync('./packages/cli/package.json', JSON.stringify(cli, null, 2));
           "
-          echo "version=$(node -p "require('./packages/react-scad/package.json').version")" >> $GITHUB_OUTPUT
+          echo "version=$(node -p "require('./packages/core/package.json').version")" >> $GITHUB_OUTPUT
 
       - name: Build
         run: pnpm run build
@@ -79,12 +82,12 @@ jobs:
         run: |
           rm -rf packages
           mkdir -p packages
-          mv react-scad cli packages/
-          ls -la packages/react-scad packages/cli
+          mv core cli packages/
+          ls -la packages/core packages/cli
 
       - name: Publish @react-scad/core
         run: npm publish --provenance --access public
-        working-directory: packages/react-scad
+        working-directory: packages/core
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -112,7 +115,7 @@ jobs:
         run: |
           rm -rf packages
           mkdir -p packages
-          mv react-scad cli packages/
+          mv core cli packages/
 
       - name: Publish @react-scad/cli
         run: npm publish --provenance --access public
@@ -137,11 +140,11 @@ jobs:
         run: |
           rm -rf packages
           mkdir -p packages
-          mv react-scad cli packages/
-          VERSION=$(node -p "require('./packages/react-scad/package.json').version")
+          mv core cli packages/
+          VERSION=$(node -p "require('./packages/core/package.json').version")
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add packages/react-scad/package.json packages/cli/package.json
+          git add packages/core/package.json packages/cli/package.json
           git diff --staged --quiet || git commit -m "chore: bump version to $VERSION [skip ci]"
           git push
           echo "VERSION=$VERSION" >> $GITHUB_ENV

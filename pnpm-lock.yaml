@@ -11,15 +11,12 @@ importers:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
 
   examples/rocket:
     dependencies:
       '@react-scad/core':
         specifier: workspace:*
-        version: link:../../packages/react-scad
+        version: link:../../packages/core
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -41,7 +38,7 @@ importers:
         version: 0.11.0
       '@react-scad/core':
         specifier: workspace:*
-        version: link:../react-scad
+        version: link:../core
       esbuild:
         specifier: ^0.24.0
         version: 0.24.2
@@ -53,7 +50,7 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
-  packages/react-scad:
+  packages/core:
     dependencies:
       react-reconciler:
         specifier: ^0.29.2

@@ -4,8 +4,8 @@
   "description": "Rocket example for react-scad",
   "type": "module",
   "scripts": {
-    "dev": "npx @react-scad/cli run main.tsx --watch",
-    "start": "npx @react-scad/cli run main.tsx"
+    "dev": "react-scad run main.tsx --watch",
+    "start": "react-scad run main.tsx"
   },
   "dependencies": {
     "@react-scad/core": "workspace:*",
