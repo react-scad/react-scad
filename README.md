@@ -12,7 +12,7 @@ Render JSX to **SCAD** models using the [React reconciler](https://github.com/fa
 
 ![Example](./assets/example.gif)
 
-*Rocket example with animated rotation.*
+*Rocket example with animated translation.*
 
 ---
 
