@@ -33,10 +33,9 @@ A lot of people already think in components and JSX from building UIs. **react-s
 ### Create a new project (recommended)
 
 ```bash
-npx create-react-scad my-project
+npx create-react-scad@latest my-project
 cd my-project
-npm run dev    # watch mode
-npm start      # single run
+npm start
 ```
 
 That’s it — open the generated `model.scad` in [OpenSCAD](https://openscad.org/) or your slicer.

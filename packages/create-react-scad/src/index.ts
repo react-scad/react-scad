@@ -4,6 +4,7 @@ import { boolean, command, positional, run } from "@drizzle-team/brocli";
 import { spawn } from "node:child_process";
 import { access, readFile, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
+import { log } from "./log.js";
 
 const EXAMPLE_REPO = "https://github.com/react-scad/example.git";
 
@@ -65,15 +66,14 @@ async function scaffold(opts: {
   );
   await writeFile(pkgPath, updatedPkg);
 
-  console.log(`Created react-scad project in ./${projectName}/\n`);
+  log.banner();
+  log.created(projectName);
+  log.blank();
 
   if (noInstall) {
-    console.log("Next steps:");
-    console.log(`  cd ${projectName}`);
-    console.log("  npm install");
-    console.log("  npm run dev");
+    log.nextSteps(projectName, false);
   } else {
-    console.log("Installing dependencies...");
+    log.nextSteps(projectName, true);
     await new Promise<void>((resolvePromise, reject) => {
       const child = spawn("npm", ["install"], {
         cwd: targetDir,
@@ -86,14 +86,12 @@ async function scaffold(opts: {
           : reject(new Error(`npm install exited with ${code}`)),
       );
     });
-    console.log("");
-    console.log("Done! Next steps:");
-    console.log(`  cd ${projectName}`);
-    console.log("  npm run dev");
+    log.blank();
+    log.done(projectName);
   }
 
-  console.log("");
-  console.log("Then open model.scad in OpenSCAD to view your model.");
+  log.blank();
+  log.openScadHint();
 }
 
 const createCommand = command({
