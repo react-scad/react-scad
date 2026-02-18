@@ -37,6 +37,19 @@ importers:
         specifier: ^5.6.3
         version: 5.9.3
 
+  packages/create-react-scad:
+    dependencies:
+      '@drizzle-team/brocli':
+        specifier: ^0.11.0
+        version: 0.11.0
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.19.11
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   sandbox:
     dependencies:
       '@react-scad/core':
@@ -110,6 +123,9 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@drizzle-team/brocli@0.11.0':
+    resolution: {integrity: sha512-hD3pekGiPg0WPCCGAZmusBBJsDqGUR66Y452YgQsZOnkdQ7ViEPKuyP4huUGEZQefp8g34RRodXYmJ2TbCH+tg==}
 
   '@esbuild/aix-ppc64@0.27.3':
     resolution: {integrity: sha512-9fJMTNFTWZMh5qwrBItuziu834eOCUcEqymSH7pY+zoMVEZg3gcPuBNxH1EvfVYe9h0x/Ptw8KBzv7qxb7l8dg==}
@@ -369,6 +385,8 @@ snapshots:
 
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
+
+  '@drizzle-team/brocli@0.11.0': {}
 
   '@esbuild/aix-ppc64@0.27.3':
     optional: true

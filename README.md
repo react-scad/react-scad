@@ -24,12 +24,6 @@ A lot of people already think in components and JSX from building UIs. **react-s
 
 ---
 
-## [Try it out!](https://github.com/react-scad/example)
-
-A minimal runnable example is available at **[react-scad/example](https://github.com/react-scad/example)**. Clone it, `npm install`, then `npm start` to generate the SCAD file.
-
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -37,7 +31,22 @@ A minimal runnable example is available at **[react-scad/example](https://github
 - **Node.js** 18+
 - **React** 18 or later (peer dependency)
 
-### Install
+### Create a new project (recommended)
+
+```bash
+npx create-react-scad my-project
+cd my-project
+npm run dev    # watch mode
+npm start      # single run
+```
+
+That’s it — open the generated `model.scad` in [OpenSCAD](https://openscad.org/) or your slicer.
+
+---
+
+### Add to an existing project
+
+#### Install
 
 ```bash
 npm install react @react-scad/core
@@ -54,7 +63,7 @@ yarn add react @react-scad/core
 
 </details>
 
-### Minimal example
+#### Minimal example
 
 Create a file `main.tsx` (or `main.jsx`):
 
@@ -79,7 +88,7 @@ root.render(
 | `Union` | CSG union of all children (like `union()` in SCAD) |
 | `Cube` / `Sphere` | Props match SCAD: `size`, `center`, `r`, `$fn`, etc. |
 
-### Run and write the `.scad` file
+#### Run and write the `.scad` file
 
 Run your entry file with [tsx](https://github.com/privatenumber/tsx) so Node can execute the `.tsx`. The `.scad` file is written to the **current working directory** when you call `root.render()`.
 
@@ -97,7 +106,7 @@ npx tsx watch main.tsx
 
 The path you pass to `createRoot()` is relative to the current working directory.
 
-### View the result
+#### View the result
 
 - Open the generated `.scad` file in [OpenSCAD](https://openscad.org/) to preview, export STL, or tweak.
 - Or import the `.scad` (or an exported STL) into your slicer for 3D printing.

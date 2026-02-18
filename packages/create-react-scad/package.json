@@ -1,0 +1,38 @@
+{
+  "name": "create-react-scad",
+  "version": "1.0.0",
+  "description": "Scaffold a new react-scad project",
+  "keywords": [
+    "react-scad",
+    "openscad",
+    "scaffold",
+    "cli",
+    "create"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-scad/react-scad"
+  },
+  "type": "module",
+  "bin": {
+    "create-react-scad": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@drizzle-team/brocli": "^0.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  }
+}
