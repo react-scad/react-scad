@@ -29,7 +29,6 @@ A lot of people already think in components and JSX from building UIs. **react-s
 ### Prerequisites
 
 - **Node.js** 18+
-- **React** 18 or later (peer dependency)
 
 ### Create a new project (recommended)
 
