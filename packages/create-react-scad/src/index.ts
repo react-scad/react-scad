@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { boolean, command, positional, run } from "@drizzle-team/brocli";
 import { spawn } from "node:child_process";
 import { access, readFile, rm, writeFile } from "node:fs/promises";
