@@ -22,6 +22,12 @@ export function createRoot(path?: Path): ScadRoot {
 	if (path) {
 		log.banner();
 		registerWriteOnCommit(container, path);
+		const gracefulExit = () => {
+			log.stop();
+			process.exit(0);
+		};
+		process.once("SIGINT", gracefulExit);
+		process.once("SIGTERM", gracefulExit);
 	}
 
 	return {

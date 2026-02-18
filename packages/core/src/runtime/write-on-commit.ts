@@ -1,6 +1,5 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-import { log } from "../log.js";
 import { toScad } from "../serialize/index.js";
 import type { ScadContainer } from "../types.js";
 
@@ -13,11 +12,8 @@ export function registerWriteOnCommit(container: ScadContainer, path: string): v
 export function writeAfterCommit(container: ScadContainer): void {
 	const path = writeOnCommitPaths.get(container);
 	if (path) {
-		const start = Date.now();
 		const dir = dirname(path);
 		if (dir !== ".") mkdirSync(dir, { recursive: true });
 		writeFileSync(path, toScad(container), "utf8");
-		const ms = Date.now() - start;
-		log.written(path, ms);
 	}
 }
