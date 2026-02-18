@@ -37,13 +37,13 @@ export const log = {
       line(`${PAD}${c.dim("Next steps:")}`);
       line(`${PAD}${PAD}${c.dim("cd")} ${c.cyan(projectName)}`);
       line(`${PAD}${PAD}${c.dim("npm install")}`);
-      line(`${PAD}${PAD}${c.dim("npm run dev")}`);
+      line(`${PAD}${PAD}${c.dim("npm start")}`);
     }
   },
   done(projectName: string): void {
     line(`${PAD}${c.green("✓")} ${c.green("Done!")} ${c.dim("Next steps:")}`);
     line(`${PAD}${PAD}${c.dim("cd")} ${c.cyan(projectName)}`);
-    line(`${PAD}${PAD}${c.dim("npm run dev")}`);
+    line(`${PAD}${PAD}${c.dim("npm start")}`);
   },
   openScadHint(): void {
     line(
