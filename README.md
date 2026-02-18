@@ -220,7 +220,7 @@ All listed SCAD primitives and operations are implemented. Prop names follow SCA
 3. **Build and test** before committing:
    ```bash
    pnpm run build
-   pnpm run dev
+   pnpm run sandbox:dev
    ```
 
 4. **Format and lint** your code:
