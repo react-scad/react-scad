@@ -33,7 +33,7 @@ A lot of people already think in components and JSX from building UIs. **react-s
 ### Create a new project (recommended)
 
 ```bash
-npx create-react-scad@latest my-project
+npx @react-scad/cli@latest new my-project
 cd my-project
 npm start
 ```

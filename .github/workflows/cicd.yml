@@ -38,7 +38,7 @@ jobs:
           const v = p.version.split('.').map(Number);
           v[2]++;
           const newV = v.join('.');
-          for (const pkg of ['packages/core/package.json', 'packages/create-react-scad/package.json']) {
+          for (const pkg of ['packages/core/package.json', 'packages/cli/package.json']) {
             const j = JSON.parse(fs.readFileSync(pkg, 'utf8'));
             j.version = newV;
             fs.writeFileSync(pkg, JSON.stringify(j, null, 2));
@@ -82,7 +82,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  publish-create-react-scad:
+  publish-cli:
     runs-on: ubuntu-latest
     needs: bump-and-build
     permissions:
@@ -100,15 +100,15 @@ jobs:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Publish create-react-scad
+      - name: Publish @react-scad/cli
         run: npm publish --provenance --access public
-        working-directory: create-react-scad
+        working-directory: cli
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   release:
     runs-on: ubuntu-latest
-    needs: [publish-core, publish-create-react-scad]
+    needs: [publish-core, publish-cli]
     permissions:
       contents: write
     steps:
@@ -124,11 +124,11 @@ jobs:
           rm -rf packages
           mkdir -p packages
           mv core packages/
-          mv create-react-scad packages/
+          mv cli packages/
           VERSION=$(node -p "require('./packages/core/package.json').version")
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add packages/core/package.json packages/create-react-scad/package.json
+          git add packages/core/package.json packages/cli/package.json
           git diff --staged --quiet || git commit -m "chore: bump version to $VERSION [skip ci]"
           git push
           echo "VERSION=$VERSION" >> $GITHUB_ENV

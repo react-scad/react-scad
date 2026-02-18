@@ -12,7 +12,7 @@ const require = createRequire(import.meta.url);
 const pkg = require("../package.json") as { version: string };
 const VERSION = pkg.version;
 
-const TOOL_NAME = "create-react-scad";
+const TOOL_NAME = "@react-scad/cli";
 const PAD = "  ";
 
 function line(msg: string): void {

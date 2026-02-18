@@ -1,6 +1,6 @@
 {
-  "name": "create-react-scad",
-  "version": "0.1.30",
+  "name": "@react-scad/cli",
+  "version": "0.1.0",
   "description": "Scaffold a new react-scad project",
   "keywords": [
     "react-scad",
@@ -13,11 +13,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/react-scad/react-scad",
-    "directory": "packages/create-react-scad"
+    "directory": "packages/cli"
   },
   "type": "module",
   "bin": {
-    "create-react-scad": "./dist/index.js"
+    "@react-scad/cli": "./dist/index.js"
   },
   "files": [
     "dist"

@@ -114,7 +114,6 @@ const createCommand = command({
   },
 });
 
-// Support both "create-react-scad my-app" and "create-react-scad new my-app"
 const argv = process.argv.slice(2);
 const first = argv[0];
 const isNewCommand =
@@ -128,7 +127,7 @@ const argSource = isNewCommand
   : [process.argv[0], process.argv[1], "new", ...argv];
 
 run([createCommand], {
-  name: "create-react-scad",
+  name: "@react-scad/cli",
   description: "Scaffold a new react-scad project",
   version: "1.0.0",
   argSource,
