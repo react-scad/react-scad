@@ -12,7 +12,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-scad/react-scad"
+    "url": "https://github.com/react-scad/react-scad",
+    "directory": "packages/create-react-scad"
   },
   "type": "module",
   "bin": {
