@@ -74,7 +74,7 @@ function serializeNode(node: ScadNode, indent: string, ctx: SerializeContext): s
 	}
 }
 
-const CREDIT = "// Generated using react-scad (https://github.com/leonmeka/react-scad)";
+const CREDIT = "// Generated using react-scad (https://github.com/react-scad/react-scad)";
 
 export function toScad(container: { children: ScadNode[] }): string {
 	const ctx: SerializeContext = {
