@@ -106,6 +106,8 @@ The path you pass to `createRoot()` is relative to the current working directory
 
 ## Advanced
 
+### Custom Behavior
+
 To write to a custom path or get the SCAD string in memory instead of using `createRoot(path)`, use `createContainer()`, `render()`, and `toScad()`:
 
 ```jsx
@@ -127,6 +129,37 @@ writeFileSync("out/model.scad", scadCode);
 ```
 
 Then run with `npx tsx main.tsx` or bundle with esbuild and run with Node.
+
+
+---
+
+### Interop with existing SCAD
+
+You can reuse existing `.scad` libraries and snippets in two ways:
+
+- **`Import`** — Emit OpenSCAD’s `import("path")` so the generated file pulls in another SCAD file (e.g. STL/DXF or a file that defines modules). Use this when the library is a separate file and you just need to reference it.
+
+  ```jsx
+  import { Import, Union } from "@react-scad/core";
+
+  <Union>
+    <Import file="lib/gears.scad" />
+  </Union>
+  ```
+
+- **`Raw`** — Emit arbitrary SCAD code inline. Use this to paste a snippet, call a module from an imported library, or wrap a block of SCAD you don’t have a dedicated component for. Children are ignored; only the `code` prop is emitted (with indentation applied).
+
+  ```jsx
+  import { Raw, Union } from "@react-scad/core";
+
+  // After Import "lib/gears.scad", call a module from it:
+  <Raw code="gear(number_of_teeth=32, circular_pitch=200);" />
+
+  // Or inject a small SCAD block:
+  <Raw code={`include <BOSL2/std.scad>\nrounded_cube(20, 0.5);`} />
+  ```
+
+Typical pattern: **`Import`** the library file once (at top level or where needed), then use **`Raw`** to call its modules or paste any SCAD that fits your tree.
 
 ---
 
