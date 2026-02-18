@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import type React from "react";
 import { log } from "../log.js";
-import { getBuildTree, toScad } from "../serialize/index.js";
+import { toScad } from "../serialize/index.js";
 import type { ScadContainer } from "../types.js";
 import { createScadContainer } from "./node-ops.js";
 import { createFiberRoot, updateContainer } from "./reconciler.js";
@@ -37,13 +37,10 @@ export function createRoot(path?: Path): ScadRoot {
       }
       const start = Date.now();
       updateContainer(element, fiberRoot, null, null);
-      if (path) {
-        const { entries, totalBytes } = getBuildTree(container);
-        log.buildTree(entries, totalBytes);
-      }
       log.complete(Date.now() - start);
       if (path) {
         log.outputPath(resolve(path));
+        log.fileSize(Buffer.byteLength(toScad(container), "utf8"));
       }
     },
     toScad() {
