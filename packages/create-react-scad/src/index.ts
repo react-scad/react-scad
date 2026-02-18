@@ -18,10 +18,13 @@ async function scaffold(opts: {
   noInstall: boolean;
 }): Promise<void> {
   const { projectName, noInstall } = opts;
+
   const packageName = sanitizePackageName(projectName);
+
   if (!packageName) {
     throw new Error("Invalid project name. Use letters, numbers, and hyphens.");
   }
+
   const targetDir = resolve(process.cwd(), projectName);
 
   try {

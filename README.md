@@ -81,17 +81,7 @@ root.render(
 );
 ```
 
-| Piece | Meaning |
-| ----- | ------- |
-| `createRoot("model.scad")` | Root that writes to `model.scad` |
-| `Union` | CSG union of all children (like `union()` in SCAD) |
-| `Cube` / `Sphere` | Props match SCAD: `size`, `center`, `r`, `$fn`, etc. |
-
 #### Run and write the `.scad` file
-
-Run your entry file with [tsx](https://github.com/privatenumber/tsx) so Node can execute the `.tsx`. The `.scad` file is written to the **current working directory** when you call `root.render()`.
-
-> **Note:** Node doesn’t run `.tsx` by itself. Use **tsx** or bundle with esbuild (see [Advanced](#advanced) for alternatives).
 
 ```bash
 npx tsx main.tsx
@@ -103,8 +93,6 @@ Watch mode (re-run on save):
 npx tsx watch main.tsx
 ```
 
-The path you pass to `createRoot()` is relative to the current working directory.
-
 #### View the result
 
 - Open the generated `.scad` file in [OpenSCAD](https://openscad.org/) to preview, export STL, or tweak.
@@ -112,7 +100,8 @@ The path you pass to `createRoot()` is relative to the current working directory
 
 ---
 
-## Advanced
+<details>
+<summary>Advanced</summary>
 
 ### Custom Behavior
 
@@ -138,10 +127,10 @@ writeFileSync("out/model.scad", scadCode);
 
 Then run with `npx tsx main.tsx` or bundle with esbuild and run with Node.
 
+</details>
 
----
-
-### Interop with existing SCAD
+<details>
+<summary>Interop with existing SCAD</summary>
 
 You can reuse existing `.scad` libraries and snippets in two ways:
 
@@ -168,6 +157,8 @@ You can reuse existing `.scad` libraries and snippets in two ways:
   ```
 
 Typical pattern: **`Import`** the library file once (at top level or where needed), then use **`Raw`** to call its modules or paste any SCAD that fits your tree.
+
+</details>
 
 ---
 
