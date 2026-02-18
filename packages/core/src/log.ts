@@ -9,19 +9,37 @@ export const c = {
 };
 
 function time(): string {
-	return new Date().toLocaleTimeString("en-US", { hour12: false });
+	return new Date().toLocaleTimeString("en-US", {
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		hour12: false,
+	});
+}
+
+const TOOL_NAME = "react-scad";
+const TS_PAD = "  "; // space after timestamp
+
+function writeLogLine(line: string): void {
+	console.log(line);
 }
 
 export const log = {
-	buildOk(ms: number): void {
-		console.log(c.dim(`[${time()}] `) + c.green("✓ Built") + c.dim(` in ${ms}ms`));
+	banner(): void {
+		console.log(`${c.bold(TOOL_NAME)}  ${c.dim("·")}  ${c.dim("Ctrl+C to exit")}`);
 	},
-	wrote(path: string, ms: number): void {
-		console.log(c.dim(`[${time()}] `) + c.green("✓ Wrote") + c.dim(` ${path} in ${ms}ms`));
+	progress(msg: string): void {
+		writeLogLine(`${c.dim(`[${time()}]`)}${TS_PAD}${c.yellow(msg)}`);
 	},
-	watchCycle(ms: number, code: number | null): void {
-		const ok = code === 0;
-		const status = ok ? c.green("done") : c.red(`exit ${code}`);
-		console.log(`  ${ok ? c.green("✓") : c.red("✗")}${c.dim(` ${ms}ms  `)}${status}`);
+	complete(ms: number): void {
+		writeLogLine(`${c.dim(`[${time()}]`)}${TS_PAD}${c.green("Built")} ${c.dim(`(${ms}ms)`)}`);
+	},
+	written(path: string, ms: number): void {
+		writeLogLine(
+			`${c.dim(`[${time()}]`)}${TS_PAD}${c.green("Written")} ${c.dim(path)} ${c.dim(`(${ms}ms)`)}`,
+		);
+	},
+	outputPath(path: string): void {
+		writeLogLine(`${c.dim(`[${time()}]`)}${TS_PAD}${c.dim("Output")} ${c.cyan(path)}`);
 	},
 };

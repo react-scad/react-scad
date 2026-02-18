@@ -1,10 +1,11 @@
+import { resolve } from "node:path";
 import type React from "react";
 import { log } from "../log.js";
 import { toScad } from "../serialize/index.js";
 import type { ScadContainer } from "../types.js";
 import { createScadContainer } from "./node-ops.js";
 import { createFiberRoot, updateContainer } from "./reconciler.js";
-import { registerWriteOnCommit, writeAfterCommit } from "./write-on-commit.js";
+import { registerWriteOnCommit } from "./write-on-commit.js";
 
 export type { ScadContainer };
 
@@ -18,14 +19,22 @@ export type Path = string;
 export function createRoot(path?: Path): ScadRoot {
 	const container = createScadContainer();
 	const fiberRoot = createFiberRoot(container);
-	if (path) registerWriteOnCommit(container, path);
+	if (path) {
+		log.banner();
+		registerWriteOnCommit(container, path);
+	}
 
 	return {
 		render(element: React.ReactElement) {
+			if (path) {
+				log.progress("Building...");
+			}
 			const start = Date.now();
 			updateContainer(element, fiberRoot, null, null);
-			if (path) writeAfterCommit(container);
-			log.watchCycle(Date.now() - start, 0);
+			log.complete(Date.now() - start);
+			if (path) {
+				log.outputPath(resolve(path));
+			}
 		},
 		toScad() {
 			return toScad(container);

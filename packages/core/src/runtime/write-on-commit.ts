@@ -18,6 +18,6 @@ export function writeAfterCommit(container: ScadContainer): void {
 		if (dir !== ".") mkdirSync(dir, { recursive: true });
 		writeFileSync(path, toScad(container), "utf8");
 		const ms = Date.now() - start;
-		log.wrote(path, ms);
+		log.written(path, ms);
 	}
 }
