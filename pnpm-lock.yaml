@@ -12,6 +12,19 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
 
+  packages/cli:
+    dependencies:
+      '@drizzle-team/brocli':
+        specifier: ^0.11.0
+        version: 0.11.0
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.19.11
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
   packages/core:
     dependencies:
       react-reconciler:
@@ -33,19 +46,6 @@ importers:
       react:
         specifier: ^18.3.1
         version: 18.3.1
-      typescript:
-        specifier: ^5.6.3
-        version: 5.9.3
-
-  packages/create-react-scad:
-    dependencies:
-      '@drizzle-team/brocli':
-        specifier: ^0.11.0
-        version: 0.11.0
-    devDependencies:
-      '@types/node':
-        specifier: ^22.10.0
-        version: 22.19.11
       typescript:
         specifier: ^5.6.3
         version: 5.9.3
