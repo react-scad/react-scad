@@ -83,3 +83,26 @@ export function toScad(container: { children: ScadNode[] }): string {
 	const body = container.children.map((n) => serializeNode(n, "", ctx)).join("\n\n");
 	return body ? `${CREDIT}\n\n${body}` : CREDIT;
 }
+
+export interface BuildTreeEntry {
+	kind: string;
+	size: number;
+	children: BuildTreeEntry[];
+}
+
+function buildTreeEntry(node: ScadNode, ctx: SerializeContext): BuildTreeEntry {
+	const size = ctx.serializeNode(node, "").length;
+	const children = node.children.map((c) => buildTreeEntry(c, ctx));
+	return { kind: node.kind, size, children };
+}
+
+export function getBuildTree(container: {
+	children: ScadNode[];
+}): { entries: BuildTreeEntry[]; totalBytes: number } {
+	const ctx: SerializeContext = {
+		serializeNode: (n, i) => serializeNode(n, i, ctx),
+	};
+	const entries = container.children.map((n) => buildTreeEntry(n, ctx));
+	const totalBytes = entries.reduce((sum, e) => sum + e.size, 0);
+	return { entries, totalBytes };
+}
