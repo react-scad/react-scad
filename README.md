@@ -126,10 +126,7 @@ writeFileSync("out/model.scad", scadCode);
 
 Then run with `npx tsx main.tsx` or bundle with esbuild and run with Node.
 
-</details>
-
-<details>
-<summary>Interop with existing SCAD</summary>
+### Interop with existing SCAD
 
 You can reuse existing `.scad` libraries and snippets in two ways:
 
