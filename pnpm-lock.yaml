@@ -12,25 +12,6 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
 
-  examples:
-    dependencies:
-      '@react-scad/core':
-        specifier: workspace:*
-        version: link:../packages/core
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-    devDependencies:
-      '@types/react':
-        specifier: ^18.3.12
-        version: 18.3.28
-      tsx:
-        specifier: ^4.19.2
-        version: 4.21.0
-      typescript:
-        specifier: ^5.6.3
-        version: 5.9.3
-
   packages/core:
     dependencies:
       react-reconciler:
@@ -52,6 +33,25 @@ importers:
       react:
         specifier: ^18.3.1
         version: 18.3.1
+      typescript:
+        specifier: ^5.6.3
+        version: 5.9.3
+
+  sandbox:
+    dependencies:
+      '@react-scad/core':
+        specifier: workspace:*
+        version: link:../packages/core
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.28
+      tsx:
+        specifier: ^4.19.2
+        version: 4.21.0
       typescript:
         specifier: ^5.6.3
         version: 5.9.3

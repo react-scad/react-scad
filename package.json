@@ -13,10 +13,10 @@
     "url": "https://github.com/react-scad/react-scad"
   },
   "scripts": {
+    "sandbox:dev": "pnpm -C sandbox run dev",
+    "sandbox:start": "pnpm -C sandbox run start",
     "build": "pnpm -r run build",
     "check": "biome check --write .",
-    "dev": "pnpm --filter @react-scad/examples run dev",
-    "start": "pnpm --filter @react-scad/examples run start",
     "format": "biome format --write .",
     "format:check": "biome format .",
     "lint": "biome lint ."
