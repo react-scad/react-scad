@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { PropsWithChildren } from "react";
 import type { LinearExtrudeNode, SerializeContext, Vec2 } from "../types.js";
-import { formatVec2 } from "../utils.js";
+import { formatScadExpr, formatVec2 } from "../utils.js";
 import { Primitive } from "./primitive.js";
 
 export interface LinearExtrudeProps extends PropsWithChildren {
@@ -20,14 +20,14 @@ LinearExtrude.displayName = "LinearExtrude";
 
 function formatScale(scale: LinearExtrudeNode["scale"]): string | undefined {
 	if (scale == null) return undefined;
-	if (typeof scale === "number" || typeof scale === "string") return String(scale);
+	if (typeof scale === "number" || typeof scale === "string") return formatScadExpr(scale);
 	return formatVec2(scale);
 }
 
 export function serialize(node: LinearExtrudeNode, indent: string, ctx: SerializeContext): string {
-	const parts: string[] = [`height = ${String(node.height)}`];
+	const parts: string[] = [`height = ${formatScadExpr(node.height)}`];
 	if (node.center === true) parts.push("center = true");
-	if (node.twist != null) parts.push(`twist = ${String(node.twist)}`);
+	if (node.twist != null) parts.push(`twist = ${formatScadExpr(node.twist)}`);
 	const scaleStr = formatScale(node.scale);
 	if (scaleStr != null) parts.push(`scale = ${scaleStr}`);
 	if (node.convexity != null) parts.push(`convexity = ${node.convexity}`);

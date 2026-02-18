@@ -64,7 +64,7 @@ function stripAnsi(s: string): string {
 
 function entryToInline(entry: BuildTreeEntry): string {
   const sym = symbolForKind(entry.kind);
-  const head = `${sym}${c.cyan(entry.kind)}`;
+  const head = `${sym} ${c.cyan(entry.kind)}`;
   if (entry.children.length === 0) return head;
   const inner = entry.children.map((ch) => entryToInline(ch)).join(", ");
   return `${head}(${inner})`;
@@ -128,7 +128,8 @@ export const log = {
     line(`${PAD}${c.dim("○")} ${c.dim(msg)}`);
   },
   complete(ms: number): void {
-    line(`${PAD}${c.green("✓")} ${c.dim("Built")} ${c.dim(`in ${ms}ms`)}`);
+    const sec = (ms / 1000).toFixed(2);
+    line(`${PAD}${c.green("✓")} ${c.green("Done")} ${c.dim(`in ${sec}s`)}`);
   },
   outputPath(path: string): void {
     line(`${PAD}${c.dim("→")} ${c.cyan(path)}`);
@@ -138,9 +139,11 @@ export const log = {
   },
   buildTree(entries: BuildTreeEntry[], totalBytes: number): void {
     line("");
+    line(`${PAD}${c.green("Compiled successfully.")}`);
+    line("");
     line(`${PAD}${c.bold("Model")}`);
     if (entries.length === 0) {
-      line(`${PAD}${c.dim("  (empty)")}`);
+      line(`${PAD}  ${c.dim("(empty)")}`);
     } else {
       formatTreeHorizontal(entries);
       line("");

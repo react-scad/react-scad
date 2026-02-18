@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { PropsWithChildren } from "react";
 import type { CylinderNode, SerializeContext } from "../types.js";
+import { formatScadExpr } from "../utils.js";
 import { Primitive } from "./primitive.js";
 
 export interface CylinderProps extends PropsWithChildren {
@@ -16,7 +17,7 @@ export const Cylinder = (props: CylinderProps) =>
 Cylinder.displayName = "Cylinder";
 
 export function serialize(node: CylinderNode, _indent: string, _ctx: SerializeContext): string {
-	let args = `h = ${String(node.h)}, r1 = ${String(node.r1)}, r2 = ${String(node.r2)}`;
+	let args = `h = ${formatScadExpr(node.h)}, r1 = ${formatScadExpr(node.r1)}, r2 = ${formatScadExpr(node.r2)}`;
 	if (node.$fn != null) args += `, $fn = ${node.$fn}`;
 	return `cylinder(${args});`;
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
 import type { PropsWithChildren } from "react";
 import type { RotateExtrudeNode, SerializeContext } from "../types.js";
+import { formatScadExpr } from "../utils.js";
 import { Primitive } from "./primitive.js";
 
 export interface RotateExtrudeProps extends PropsWithChildren {
@@ -15,7 +16,7 @@ RotateExtrude.displayName = "RotateExtrude";
 
 export function serialize(node: RotateExtrudeNode, indent: string, ctx: SerializeContext): string {
 	const parts: string[] = [];
-	if (node.angle != null) parts.push(`angle = ${String(node.angle)}`);
+	if (node.angle != null) parts.push(`angle = ${formatScadExpr(node.angle)}`);
 	if (node.convexity != null) parts.push(`convexity = ${node.convexity}`);
 	if (node.$fn != null) parts.push(`$fn = ${node.$fn}`);
 

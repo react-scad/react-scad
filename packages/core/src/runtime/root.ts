@@ -10,59 +10,59 @@ import { registerWriteOnCommit } from "./write-on-commit.js";
 export type { ScadContainer };
 
 export interface ScadRoot {
-	render(element: React.ReactElement): void;
-	toScad(): string;
+  render(element: React.ReactElement): void;
+  toScad(): string;
 }
 
 export type Path = string;
 
 export function createRoot(path?: Path): ScadRoot {
-	const container = createScadContainer();
-	const fiberRoot = createFiberRoot(container);
-	if (path) {
-		log.banner();
-		registerWriteOnCommit(container, path);
-		const gracefulExit = () => {
-			log.stop();
-			process.exit(0);
-		};
-		process.once("SIGINT", gracefulExit);
-		process.once("SIGTERM", gracefulExit);
-	}
+  const container = createScadContainer();
+  const fiberRoot = createFiberRoot(container);
+  if (path) {
+    log.banner();
+    registerWriteOnCommit(container, path);
+    const gracefulExit = () => {
+      log.stop();
+      process.exit(0);
+    };
+    process.once("SIGINT", gracefulExit);
+    process.once("SIGTERM", gracefulExit);
+  }
 
-	return {
-		render(element: React.ReactElement) {
-			if (path) {
-				log.progress("Building...");
-			}
-			const start = Date.now();
-			updateContainer(element, fiberRoot, null, null);
-			if (path) {
-				const { entries, totalBytes } = getBuildTree(container);
-				log.buildTree(entries, totalBytes);
-			}
-			log.complete(Date.now() - start);
-			if (path) {
-				log.outputPath(resolve(path));
-			}
-		},
-		toScad() {
-			return toScad(container);
-		},
-	};
+  return {
+    render(element: React.ReactElement) {
+      if (path) {
+        log.progress("Building...");
+      }
+      const start = Date.now();
+      updateContainer(element, fiberRoot, null, null);
+      if (path) {
+        const { entries, totalBytes } = getBuildTree(container);
+        log.buildTree(entries, totalBytes);
+      }
+      log.complete(Date.now() - start);
+      if (path) {
+        log.outputPath(resolve(path));
+      }
+    },
+    toScad() {
+      return toScad(container);
+    },
+  };
 }
 
 export function createContainer(): ScadContainer {
-	return createScadContainer();
+  return createScadContainer();
 }
 
 export function render(
-	element: React.ReactElement,
-	container: ScadContainer,
-	callback?: () => void,
+  element: React.ReactElement,
+  container: ScadContainer,
+  callback?: () => void,
 ): void {
-	const fiberRoot = createFiberRoot(container);
-	updateContainer(element, fiberRoot, null, callback ?? null);
+  const fiberRoot = createFiberRoot(container);
+  updateContainer(element, fiberRoot, null, callback ?? null);
 }
 
 export { toScad } from "../serialize/index.js";
