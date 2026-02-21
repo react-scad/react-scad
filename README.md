@@ -1,10 +1,10 @@
 # [react-scad](https://github.com/react-scad/react-scad) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/react-scad/react-scad/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/@react-scad/core.svg?style=flat)](https://www.npmjs.com/package/@react-scad/core) [![Publish](https://github.com/react-scad/react-scad/actions/workflows/cicd.yml/badge.svg)](https://github.com/react-scad/react-scad/actions/workflows/cicd.yml) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/react-scad/react-scad#contributing)
 
-Render JSX to **SCAD** models using the [React reconciler](https://github.com/facebook/react/tree/main/packages/react-reconciler).
+A small authoring layer on top of [OpenSCAD](https://openscad.org/). Transpile **JSX** to **SCAD** and use it to extend your existing workflows.
 
 - Describe models as a tree of components instead of imperative SCAD; avoids nested modules and parameter threading.
 - Same React/JSX mental model (components, props, composition), output is 3D.
-- Writes plain `.scad` files for [OpenSCAD](https://openscad.org/) or any slicer.
+- Writes plain `.scad` files for OpenSCAD or any slicer.
 
 ---
 
@@ -20,7 +20,7 @@ Render JSX to **SCAD** models using the [React reconciler](https://github.com/fa
 
 SCAD is good for parametric 3D but scripts are imperative and nesting gets heavy; composing modules and passing parameters is tedious.
 
-A lot of people already think in components and JSX from building UIs. **react-scad** aims to facilitate that same way of thinking for parametric 3D.
+A lot of people already think in components and JSX from building UIs. **react-scad** transpiles JSX to SCAD so you can use that same mental model for parametric 3D.
 
 ---
 
