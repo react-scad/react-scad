@@ -1,6 +1,6 @@
 {
   "name": "@react-scad/cli",
-  "version": "0.1.32",
+  "version": "0.1.33",
   "description": "Scaffold a new react-scad project",
   "keywords": [
     "react-scad",

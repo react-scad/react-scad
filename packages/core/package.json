@@ -1,6 +1,6 @@
 {
   "name": "@react-scad/core",
-  "version": "0.1.32",
+  "version": "0.1.33",
   "description": "Transpile JSX to OpenSCAD models using the React reconciler",
   "keywords": [
     "react",
