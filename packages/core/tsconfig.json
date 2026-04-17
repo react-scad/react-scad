@@ -4,6 +4,7 @@
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"lib": ["ES2020", "DOM"],
+		"types": ["node"],
 		"declaration": true,
 		"declarationMap": false,
 		"removeComments": true,
@@ -12,11 +13,7 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"jsx": "react-jsx",
-		"noEmit": false,
-		"baseUrl": ".",
-		"paths": {
-			"react-scad": ["./dist/index.js"]
-		}
+		"noEmit": false
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]
