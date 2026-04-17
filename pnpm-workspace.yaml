@@ -3,3 +3,4 @@ packages:
   - sandbox
 onlyBuiltDependencies:
   - esbuild
+  - "@biomejs/biome"
