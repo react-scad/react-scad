@@ -5,7 +5,23 @@
 
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule: 
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/packages/core"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/packages/cli"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/sandbox"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
       interval: "weekly"
