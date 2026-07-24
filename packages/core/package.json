@@ -34,9 +34,9 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.12",
 		"@types/node": "^25.6.0",
-		"@types/react": "^19.2.14",
+		"@types/react": "^19.2.17",
 		"@types/react-reconciler": "^0.33.0",
-		"react": "^19.2.5",
+		"react": "^19.2.8",
 		"typescript": "^6.0.3"
 	}
 }
